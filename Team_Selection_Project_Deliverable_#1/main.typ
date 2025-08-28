@@ -13,7 +13,7 @@
         [Dan], [\@csus.edu],
         [Micho], [\@csus.edu],
         [Rey], [\@csus.edu],
-        [Slowpoke], [\@csus.edu],
+        [Brittnee McDonald], [\bmcdonald2@csus.edu],
     )
 ]
 
@@ -32,8 +32,8 @@
 == Rey
 #lorem(50)
 
-== Slowpoke
-#lorem(50)
+== Brittnee McDonald
+Experience with Java, C++, and SQL.
 
 = Team Procedures
 
