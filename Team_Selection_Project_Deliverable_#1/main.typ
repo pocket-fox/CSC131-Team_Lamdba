@@ -13,7 +13,7 @@
         [Dan], [\@csus.edu],
         [Micho], [\@csus.edu],
         [Rey], [\@csus.edu],
-        [Brittnee McDonald], [\bmcdonald2@csus.edu],
+        [Brittnee McDonald], [bmcdonald2\@csus.edu],
     )
 ]
 
