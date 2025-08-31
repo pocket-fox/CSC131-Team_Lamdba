@@ -1,8 +1,8 @@
 #import "./formatting.typ": *
 #show: doc => formatting(doc)
 
-= Members of #team_name
 #align(center)[
+    = Members of #team_name
     #table(
         columns: (auto, auto),
         inset: 10pt,
