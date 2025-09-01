@@ -2,7 +2,7 @@
 #let team_name = [Team Lambda]
 #let deliverable_number = 1
 #let title = [Team Selection & Organization]
-#let due_date = [Due Date]
+#let due_date = [September 2, 2025]
 
 // Document formatting
 #let formatting(doc) = {
@@ -34,7 +34,7 @@
         if query(heading.where(level: 1).before(here())).len() > 1 {
             pagebreak()
         }
-        set align(center)
+        set block(below: 1em)
         it
     }
 
