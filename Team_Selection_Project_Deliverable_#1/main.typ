@@ -21,7 +21,11 @@
 #lorem(50)
 
 == Connor Lecluse
-#lorem(50)
+Attended the Los Rios Community College District majoring in Computer Science
+before transfering to Sacramento State under the same major. Has moderate
+experience using and troubleshooting Linux systems and servers. Is presently
+working on two personal projects written in Zig. Has experience in C, C++, Zig,
+Rust, Nix, Bash, and Java.
 
 == Dan
 #lorem(50)
