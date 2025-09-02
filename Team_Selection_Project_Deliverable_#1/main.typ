@@ -37,7 +37,12 @@ Rust, Nix, Bash, and Java.
 #lorem(50)
 
 == Brittnee McDonald
-Experience with Java, C++, and SQL.
+Started at Solano Community College and got an Associate's for transfer in Computer 
+Science then transferred to Sacramento State. Experience with C++ and Java through school. 
+Experience with SQL through work, mainly for query searches in a data base. Currently 
+working as a System Admin in Salesforce and has experience creating and deploying 
+applications and creating Data Flows within Salesforce. Experience converting data into 
+readable graphs in excel for analysis. 
 
 = Team Procedures
 
