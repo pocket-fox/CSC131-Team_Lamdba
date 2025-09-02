@@ -18,13 +18,13 @@
         {
           buildInputs = with pkgs; [
             typst
-            docker
+
+            # Necessary for local testing of github actions
+            act
           ];
 
           shellHook = ''
             echo "Using Team Lambda Project environment"
-            # export PATH="$PATH:/home/pocketfox/.cargo/bin"
-            # exec fish
           '';
         };
     
