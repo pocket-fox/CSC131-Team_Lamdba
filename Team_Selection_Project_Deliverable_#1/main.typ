@@ -10,7 +10,7 @@
         align: (left + horizon, right + horizon),
         [Amaan Habib _(Lead)_], [amaanhabib\@csus.edu],
         [Connor Lecluse], [clecluse\@csus.edu],
-        [Dan], [\@csus.edu],
+        [Daniel Kokhanevich], [danielkokhanevich\@csus.edu],
         [Micho], [\@csus.edu],
         [Rey], [\@csus.edu],
         [Brittnee McDonald], [bmcdonald2\@csus.edu],
@@ -27,8 +27,12 @@ experience using and troubleshooting Linux systems and servers. Is presently
 working on two personal projects written in Zig. Has experience in C, C++, Zig,
 Rust, Nix, Bash, and Java.
 
-== Dan
-#lorem(50)
+== Daniel Kokhanevich
+Previous Sacramento City College nursing program student turned Computer Science 
+major. Currently a full time student at Sacramento State trying to learn Software
+Development with an interest in Cyber Security. Brief experience making projects in
+C++, x86 Microsoft Assembly, and Java. Working towards multiple certificates to get
+an internship in Cyber.
 
 == Micho
 #lorem(50)
