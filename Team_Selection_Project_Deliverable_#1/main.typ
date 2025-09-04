@@ -12,7 +12,7 @@
         [Connor Lecluse], [clecluse\@csus.edu],
         [Daniel Kokhanevich], [danielkokhanevich\@csus.edu],
         [Victor Nava], [vfnava\@csus.edu],
-        [Rey], [\@csus.edu],
+        [Rey], [marcoreyes\@csus.edu],
         [Brittnee McDonald], [bmcdonald2\@csus.edu],
     )
 ]
