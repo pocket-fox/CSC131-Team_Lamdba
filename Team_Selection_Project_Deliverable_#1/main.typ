@@ -12,7 +12,7 @@
         [Connor Lecluse], [clecluse\@csus.edu],
         [Daniel Kokhanevich], [danielkokhanevich\@csus.edu],
         [Victor Nava], [vfnava\@csus.edu],
-        [Rey], [marcoreyes\@csus.edu],
+        [Marco "Rey" Reyes], [marcoreyes\@csus.edu],
         [Brittnee McDonald], [bmcdonald2\@csus.edu],
     )
 ]
@@ -41,7 +41,7 @@ an internship in Cyber.
 Full time student here at Sacramento State, majoring in Computer Science. I have formal
 experience with Java and C but I have independently experienced C++ and Python.
 
-== Rey
+== Rey Reyes
 Started at Sacramento State, majoring in Computer Science. Currently working at Golden 1
 on the information security team. My strengths and interests are in cybersecurity
 with a focus on implementation and hardware. I'm familiar with Python, Java, C++, Bash, 
