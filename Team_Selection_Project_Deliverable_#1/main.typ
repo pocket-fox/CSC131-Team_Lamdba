@@ -37,8 +37,9 @@ Development with an interest in Cyber Security. Brief experience making projects
 C++, x86 Microsoft Assembly, and Java. Working towards multiple certificates to get
 an internship in Cyber.
 
-== Micho
-#lorem(50)
+== Victor Nava
+Full time student here at Sacramento State, majoring in Computer Science. I have formal
+experience with Java and C but I have independently experienced C++ and Python.
 
 == Rey
 #lorem(50)
