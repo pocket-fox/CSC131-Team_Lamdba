@@ -18,7 +18,10 @@
 ]
 
 == Amaan Habib
-#lorem(50)
+Initially went Los Rios Community College District before transfering to 
+Sacramento State for Computer Science. I am currently a full time student 
+and plan to graduate in a year. I experince in Java, C++, Python, and 
+Github where most of my experience is through classes.
 
 == Connor Lecluse
 Attended the Los Rios Community College District majoring in Computer Science
