@@ -11,7 +11,7 @@
         [Amaan Habib _(Lead)_], [amaanhabib\@csus.edu],
         [Connor Lecluse], [clecluse\@csus.edu],
         [Daniel Kokhanevich], [danielkokhanevich\@csus.edu],
-        [Micho], [\@csus.edu],
+        [Victor Nava], [vfnava\@csus.edu],
         [Rey], [\@csus.edu],
         [Brittnee McDonald], [bmcdonald2\@csus.edu],
     )
