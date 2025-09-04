@@ -42,7 +42,10 @@ Full time student here at Sacramento State, majoring in Computer Science. I have
 experience with Java and C but I have independently experienced C++ and Python.
 
 == Rey
-#lorem(50)
+Started at Sacramento State, majoring in Computer Science. Currently working at Golden 1
+on the information security team. My strengths and interests are in cybersecurity
+with a focus on implementation and hardware. I'm familiar with Python, Java, C++, Bash, 
+and PowerShell; I'm looking forward to growing my experience further with this project.
 
 == Brittnee McDonald
 Started at Solano Community College and got an Associate's for transfer in Computer 
