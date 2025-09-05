@@ -23,37 +23,13 @@ Sacramento State for Computer Science. I am currently a full time student
 and plan to graduate in a year. I experince in Java, C++, Python, and 
 Github where most of my experience is through classes.
 
-== Connor Lecluse
-Attended the Los Rios Community College District majoring in Computer Science
-before transfering to Sacramento State under the same major. Has moderate
-experience using and troubleshooting Linux systems and servers. Is presently
-working on two personal projects written in Zig. Has experience in C, C++, Zig,
-Rust, Nix, Bash, and Java.
-
-== Daniel Kokhanevich
-Previous Sacramento City College nursing program student turned Computer Science 
-major. Currently a full time student at Sacramento State trying to learn Software
-Development with an interest in Cyber Security. Brief experience making projects in
-C++, x86 Microsoft Assembly, and Java. Working towards multiple certificates to get
-an internship in Cyber.
-
-== Victor Nava
-Full time student here at Sacramento State, majoring in Computer Science. I have formal
-experience with Java and C but I have independently experienced C++ and Python.
-
-== Rey Reyes
 Started at Sacramento State, majoring in Computer Science. Currently working at Golden 1
 on the information security team. My strengths and interests are in cybersecurity
 with a focus on implementation and hardware. I'm familiar with Python, Java, C++, Bash, 
 and PowerShell; I'm looking forward to growing my experience further with this project.
 
 == Brittnee McDonald
-Started at Solano Community College and got an Associate's for transfer in Computer 
-Science then transferred to Sacramento State. Experience with C++ and Java through school. 
-Experience with SQL through work, mainly for query searches in a data base. Currently 
-working as a System Admin in Salesforce and has experience creating and deploying 
-applications and creating Data Flows within Salesforce. Experience converting data into 
-readable graphs in excel for analysis. 
+peaches
 
 = Team Procedures
 
