@@ -48,12 +48,7 @@ with a focus on implementation and hardware. I'm familiar with Python, Java, C++
 and PowerShell; I'm looking forward to growing my experience further with this project.
 
 == Brittnee McDonald
-Started at Solano Community College and got an Associate's for transfer in Computer 
-Science then transferred to Sacramento State. Experience with C++ and Java through school. 
-Experience with SQL through work, mainly for query searches in a data base. Currently 
-working as a System Admin in Salesforce and has experience creating and deploying 
-applications and creating Data Flows within Salesforce. Experience converting data into 
-readable graphs in excel for analysis. 
+peaches is a cat 
 
 = Team Procedures
 
