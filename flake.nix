@@ -19,6 +19,8 @@
           buildInputs = with pkgs; [
             typst
 
+            nodejs
+
             # Necessary for local testing of github actions
             act
           ];
