@@ -11,7 +11,7 @@ var TitleState = {
 
     this.game.canvas.setAttribute('tabindex', '0');
     this.game.canvas.setAttribute('role', 'img');
-    this.game.canvas.setAttribute('aria-label', 'Game canvas region')
+    // this.game.canvas.setAttribute('aria-label', 'Game canvas region')
     
     // Background
     this.backgroundSprite = this.add.sprite(0, 0, "background_1");
