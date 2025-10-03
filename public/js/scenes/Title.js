@@ -9,6 +9,7 @@ var TitleState = {
   preload: function () {},
   create: function () {
 
+    this.game.canvas.setAttribute('tabindex', '0');
     this.game.canvas.setAttribute('role', 'img');
     this.game.canvas.setAttribute('aria-label', 'Game canvas region')
     
