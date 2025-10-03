@@ -1,8 +1,17 @@
 "use strict";
 
 var TitleState = {
+
+  _a11yRoot: null,
+  _live: null,
+  _label: null,
+  
   preload: function () {},
   create: function () {
+
+    this.game.canvas.setAttribute('role', 'img');
+    this.game.canvas.setAttribute('aria-label', 'Game canvas region')
+    
     // Background
     this.backgroundSprite = this.add.sprite(0, 0, "background_1");
 
