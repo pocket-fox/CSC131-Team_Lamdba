@@ -39,6 +39,21 @@ var TitleState = {
     );
 
     // Buttons
+    var domButton = document.createElement('button');
+    domButton.textContent = 'Play';
+    domButton.setAttribute('aria-label', 'Play');
+    domButton.setAttribute('tabindex', '0');
+    domButton.style.position = 'absolute';
+    domButton.style.left = (0.3 * WIDTH) + 'px';
+    domButton.style.top = (0.68 * HEIGHT) + 'px';
+    domButton.style.width = '100px';
+    domButton.style.height = '100px';
+    domButton.style.zIndex = 1000;
+    domButton.style.pointerEvents = 'auto';
+    domButton.style.background = 'transparent';
+    domButton.style.border = 'none';
+    this.game.canvas.parentNode.appendChild(domButton);
+    
     this.playButton = this.add.button(
       0.3 * WIDTH,
       0.68 * HEIGHT,
