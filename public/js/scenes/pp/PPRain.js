@@ -124,6 +124,14 @@ var PPRainState = {
 
     // Play sound
     AudioManager.playSound("rain_sfx", this);
+
+    // Keyboard spacebar to continue to the next screen
+    this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+      .onDown.add(function () {
+        if (this.nextButton && this.nextButton.visible && this.nextButtonActions && this.nextButtonActions.onClick) {
+          this.nextButtonActions.onClick.call(this);
+        }
+      }, this);
   },
   update: function () {},
   nextButtonActions: {
