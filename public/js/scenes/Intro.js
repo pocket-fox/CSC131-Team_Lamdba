@@ -203,6 +203,14 @@ var IntroState = {
       this
     );
 
+    // Keyboard spacebar to go to next screen
+    this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+      .onDown.add(function () {
+        if (this.nextButton && this.nextButton.visible && this.nextButtonActions && this.nextButtonActions.onClick) {
+          this.nextButtonActions.onClick.call(this);
+        }
+      }, this);
+
     // Mute button
     createMuteButton(this);
   },
@@ -210,21 +218,17 @@ var IntroState = {
     updateCloudSprites(this);
   },
   nextSubScene: function () {
-    // This probably isn't the most efficient way of doing this
-
     // Before changing subscene
     switch (this.subSceneIndex) {
       case 0:
         this.professorSprite1.visible = false;
         this.speechText1.visible = false;
-
         this.nextButton.visible = false;
         break;
       case 1:
         this.professorSprite2.visible = false;
         this.speechBox1.visible = false;
         this.speechText2.visible = false;
-
         this.nextButton.visible = false;
         break;
       case 2:
@@ -232,7 +236,6 @@ var IntroState = {
         this.infoBox1.visible = false;
         this.speechText3_1.visible = false;
         this.speechText3_2.visible = false;
-
         this.nextButton.visible = false;
         break;
       case 3:
@@ -240,7 +243,6 @@ var IntroState = {
         this.infoBox2.visible = false;
         this.speechText4_1.visible = false;
         this.speechText4_2.visible = false;
-
         this.nextButton.visible = false;
         break;
     }
