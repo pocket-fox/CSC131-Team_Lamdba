@@ -39,11 +39,8 @@ var PPIntroState = {
       0.43 * HEIGHT,
       "pp_trashcan"
     );
-
     this.dirtSprite = this.add.sprite(0.23 * WIDTH, 0.75 * HEIGHT, "pp_dirt");
-
     this.dogSprite = this.add.sprite(0.28 * WIDTH, 0.64 * HEIGHT, "pp_dog");
-
     this.wetlandsSprite = this.add.sprite(
       0.2 * WIDTH,
       0.48 * HEIGHT,
@@ -133,13 +130,19 @@ var PPIntroState = {
       },
       this
     );
+
+    // Keyboard spacebar to continue
+    this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+      .onDown.add(function(){
+        if (this.nextButton && this.nextButton.visible && this.nextButtonActions && this.nextButtonActions.onClick) {
+          this.nextButtonActions.onClick.call(this);
+        }
+      }, this);
   },
   update: function () {
     updateCloudSprites(this);
   },
   nextSubScene: function () {
-    // This probably isn't the most efficient way of doing this
-
     // Before changing subscene
     switch (this.subSceneIndex) {
       case 0:
