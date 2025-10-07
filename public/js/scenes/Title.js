@@ -51,6 +51,10 @@ var TitleState = {
 
     // Audio
     AudioManager.playSong("title_music", this);
+
+    // Keyboard spacebar to start game
+    this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+      .onDown.add(this.playButtonActions.onClick, this);
   },
   update: function () {
     updateCloudSprites(this);
