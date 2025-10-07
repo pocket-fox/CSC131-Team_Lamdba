@@ -16,8 +16,13 @@ var PPQuestionState = {
           obj: options[i],
         });
       }
-      shuffleArray(randomOptions);
-      PPGame.optionOrder = randomOptions;
+
+      while (randomOptions.length > 0) {
+        var id = Math.floor(Math.random() * randomOptions.length);
+        var obj = randomOptions[id];
+        PPGame.optionOrder.push(obj);
+        randomOptions.splice(id, 1);
+      }
     }
 
     // Background
@@ -86,6 +91,33 @@ var PPQuestionState = {
         .yoyo(true, 0)
         .loop(true);
     }
+
+    // Keyboard 1, 2, and 3 to select answer options
+    this.selectOptionByIndex = function (idx) {
+      var opt = PPGame.optionOrder && PPGame.optionOrder[idx];
+      if (!opt) return;
+      PPGame.chosenOptionId = opt.id;
+      PPGame.scoreLock = false;
+      PPGame.optionOrder = [];
+      AudioManager.playSound("bloop_sfx", this);
+      this.state.start("PPRainState");
+    };
+
+    // Top row
+    this.input.keyboard.addKey(Phaser.Keyboard.ONE)
+      .onDown.add(function(){ this.selectOptionByIndex(0); }, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.TWO)
+      .onDown.add(function(){ this.selectOptionByIndex(1); }, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.THREE)
+      .onDown.add(function(){ this.selectOptionByIndex(2); }, this);
+
+    // Numpad
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+      .onDown.add(function(){ this.selectOptionByIndex(0); }, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2)
+      .onDown.add(function(){ this.selectOptionByIndex(1); }, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_3)
+      .onDown.add(function(){ this.selectOptionByIndex(2); }, this);
 
     // Play music
     AudioManager.playSong("pp_music", this);
