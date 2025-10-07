@@ -21,7 +21,7 @@ var PPResultState = {
       correct ? "background_3" : "background_4"
     );
 
-    // Wetlands
+    // Wetlands positioning
     var wetlandsX = 0.38 * WIDTH;
     var wetlandsY = 0.52 * HEIGHT;
 
@@ -249,7 +249,7 @@ var PPResultState = {
     }
 
     switch (wetlands.overlay) {
-      case 1: // Overlay - Mud
+      case 1: // Mud
         this.wetlandsOverlayMudSprite = this.add.sprite(
           wetlandsX,
           wetlandsY,
@@ -257,7 +257,7 @@ var PPResultState = {
         );
         this.wetlandsOverlayMudSprite.anchor.setTo(0.5, 0.5);
         break;
-      case 2: // Overlay - Paint
+      case 2: // Paint
         this.wetlandsOverlayPaintSprite = this.add.sprite(
           wetlandsX,
           wetlandsY,
@@ -265,7 +265,7 @@ var PPResultState = {
         );
         this.wetlandsOverlayPaintSprite.anchor.setTo(0.5, 0.5);
         break;
-      case 3: // Overlay - Fertilizer
+      case 3: // Fertilizer
         this.wetlandsOverlayFertilizerSprite = this.add.sprite(
           wetlandsX,
           wetlandsY,
@@ -273,7 +273,7 @@ var PPResultState = {
         );
         this.wetlandsOverlayFertilizerSprite.anchor.setTo(0.5, 0.5);
         break;
-      case 4: // Overlay - Oil
+      case 4: // Oil
         this.wetlandsOverlayOilSprite = this.add.sprite(
           wetlandsX,
           wetlandsY,
@@ -281,7 +281,7 @@ var PPResultState = {
         );
         this.wetlandsOverlayOilSprite.anchor.setTo(0.5, 0.5);
         break;
-      case 5: // Overlay - Mud & Oil - Special
+      case 5: // Mud & Oil
         this.wetlandsOverlayMudSprite = this.add.sprite(
           wetlandsX,
           wetlandsY,
@@ -297,7 +297,7 @@ var PPResultState = {
         break;
     }
 
-    // Wetlands Foreground
+    // Foreground
     this.wetlandsFGSprite = this.add.sprite(
       wetlandsX,
       wetlandsY,
@@ -337,15 +337,10 @@ var PPResultState = {
     this.upperText.addFontWeight("bold", 0);
     this.upperText.resolution = 2;
 
-    // Speech Boxes
-    this.speechBox = this.add.sprite(
-      0.38 * WIDTH,
-      0.87 * HEIGHT,
-      "speechbox_4"
-    );
+    // Speech box and lower text
+    this.speechBox = this.add.sprite(0.38 * WIDTH, 0.87 * HEIGHT, "speechbox_4");
     this.speechBox.anchor.setTo(0.46, 0.5);
 
-    // Lower Text
     this.lowerText = this.add.text(
       0.38 * WIDTH,
       0.87 * HEIGHT,
@@ -357,7 +352,7 @@ var PPResultState = {
     this.lowerText.addFontWeight("bold", 0);
     this.lowerText.resolution = 2;
 
-    // Buttons
+    // Next button
     this.nextButton = this.add.button(
       0.888 * WIDTH,
       0.42 * HEIGHT,
@@ -376,7 +371,7 @@ var PPResultState = {
       .yoyo(true, 0)
       .loop(true);
 
-    // Start Animation
+    // Start Animation for showing Next
     this.nextDelay = 1000;
     this.animationSpeed = 500;
 
@@ -421,6 +416,14 @@ var PPResultState = {
       1
     );
     this.pauseButton.scale.setTo(0.75);
+
+    // Keyboard space to go to the next screen
+    this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+      .onDown.add(function () {
+        if (this.nextButton && this.nextButton.visible && this.nextButtonActions && this.nextButtonActions.onClick) {
+          this.nextButtonActions.onClick.call(this);
+        }
+      }, this);
   },
   update: function () {},
   nextButtonActions: {
