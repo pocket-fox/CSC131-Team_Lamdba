@@ -14,22 +14,20 @@ var PPLevelSelectState = {
 
     // Mute Button
     //this.muteBtn = this.add.button(0.9 * WIDTH, 0.1 * HEIGHT, "button_sound")
+    //this.muteBtn.anchor.setTo(0.5, 0.5);
 
     // Characters
     this.professorSprite = this.add.sprite(
-      0.12 * WIDTH,
-      0.375 * HEIGHT,
-      "professor_6"
+      0.08 * WIDTH,
+      0.37 * HEIGHT,
+      "professor_1"
     );
 
-    // Title
-    //this.title = this.add.sprite((0.5 * WIDTH) -
-
-    // Speech Boxes
+    // Speech Box
     this.speechBox = this.add.sprite(
-      0.49 * WIDTH,
+      0.5 * WIDTH,
       0.35 * HEIGHT,
-      "speechbox_3"
+      "speechbox_2"
     );
     this.speechBox.anchor.setTo(0.44, 0.5);
     this.speechBox.scale.setTo(-1, -1);
@@ -64,8 +62,8 @@ var PPLevelSelectState = {
       .loop(true);
 
     this.level2Btn = this.add.button(
-      0.655 * WIDTH,
-      0.55 * HEIGHT,
+      0.475 * WIDTH,
+      0.45 * HEIGHT,
       "button_pp_lvl2",
       this.buttonActions.onClickTwo,
       this,
@@ -81,8 +79,8 @@ var PPLevelSelectState = {
       .loop(true);
 
     this.level3Btn = this.add.button(
-      0.835 * WIDTH,
-      0.55 * HEIGHT,
+      0.475 * WIDTH,
+      0.65 * HEIGHT,
       "button_pp_lvl3",
       this.buttonActions.onClickThree,
       this,
@@ -100,18 +98,19 @@ var PPLevelSelectState = {
     // Mute button
     createMuteButton(this);
 
-    // Start Animation
-    this.animationSpeed = 500;
-
-    this.add
-      .tween(this.speechText.scale)
-      .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-    this.add
-      .tween(this.speechBox.scale)
-      .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-
-    // Audio (if reset)
-    AudioManager.playSong("title_music", this);
+    // Keyboard can use 1, 2, and 3 to select level, numpad or top row
+    this.input.keyboard.addKey(Phaser.Keyboard.ONE)
+      .onDown.add(this.buttonActions.onClickOne, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.TWO)
+      .onDown.add(this.buttonActions.onClickTwo, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.THREE)
+      .onDown.add(this.buttonActions.onClickThree, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+      .onDown.add(this.buttonActions.onClickOne, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2)
+      .onDown.add(this.buttonActions.onClickTwo, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_3)
+      .onDown.add(this.buttonActions.onClickThree, this);
   },
   update: function () {
     updateCloudSprites(this);
