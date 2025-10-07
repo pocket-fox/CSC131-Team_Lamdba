@@ -85,7 +85,19 @@ var ChooseGameState = {
 
     // Audio
     AudioManager.playSong("title_music", this);
-  },
+  
+    // Keyboardto select game: 1 -> FF, 2 -> PP (top row)
+    this.input.keyboard.addKey(Phaser.Keyboard.ONE)
+      .onDown.add(this.ffButtonActions.onClick, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.TWO)
+      .onDown.add(this.ppButtonActions.onClick, this);
+
+    // Numpad
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+      .onDown.add(this.ffButtonActions.onClick, this);
+    this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2)
+      .onDown.add(this.ppButtonActions.onClick, this);
+},
   update: function () {
     updateCloudSprites(this);
   },
