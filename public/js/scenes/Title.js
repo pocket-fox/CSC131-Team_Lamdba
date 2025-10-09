@@ -76,6 +76,8 @@ var TitleState = {
 
     // Audio
     AudioManager.playSong("title_music", this);
+
+    console.log(this.game.world.children);
   },
   update: function () {
     updateCloudSprites(this);
