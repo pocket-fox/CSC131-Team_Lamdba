@@ -42,7 +42,7 @@ var TitleState = {
     var domButton = document.createElement('button');
     domButton.textContent = 'Play';
     domButton.setAttribute('aria-label', 'Play');
-    domButton.setAttribute('tabindex', '0');
+    domButton.setAttribute('tabindex', '1');
     domButton.style.position = 'absolute';
     domButton.style.left = (0.3 * WIDTH) + 'px';
     domButton.style.top = (0.68 * HEIGHT) + 'px';
