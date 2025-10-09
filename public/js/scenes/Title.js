@@ -44,14 +44,15 @@ var TitleState = {
     domButton.setAttribute('aria-label', 'Banana');
     domButton.setAttribute('tabindex', '1');
     domButton.style.position = 'absolute';
-    domButton.style.left = (0.3 * WIDTH) + 'px';
-    domButton.style.top = (0.68 * HEIGHT) + 'px';
+    domButton.style.left = (this.game.canvas.offsetLeft + (0.3 * WIDTH)) + 'px';
+    domButton.style.top = (this.game.canvas.offsetTop + (0.68 * HEIGHT)) + 'px';
     domButton.style.width = '100px';
     domButton.style.height = '100px';
     domButton.style.zIndex = 1000;
     domButton.style.pointerEvents = 'auto';
     domButton.style.background = 'transparent';
     domButton.style.border = 'none';
+    domButton.addEventListener('click', this.playButtonActions.onClick.bind(this))
     this.game.canvas.parentNode.appendChild(domButton);
     
     this.playButton = this.add.button(
