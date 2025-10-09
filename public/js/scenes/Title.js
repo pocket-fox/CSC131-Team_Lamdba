@@ -39,12 +39,11 @@ var TitleState = {
 
     // Buttons
     var domButton = document.createElement('button');
-    domButton.textContent = 'Play';
-    domButton.setAttribute('aria-label', 'Banana');
+    domButton.setAttribute('aria-label', 'Play');
     domButton.setAttribute('tabindex', '0');
     domButton.style.position = 'absolute';
-    domButton.style.left = this.game.canvas.offsetLeft + 200 + 'px';
-    domButton.style.top = this.game.canvas.offsetTop + 200 + 'px';
+    domButton.style.left = (this.game.canvas.offsetLeft + (0.3 * WIDTH)) + 'px';
+    domButton.style.top = (this.game.canvas.offsetTop + (0.68 * HEIGHT)) + 'px';
     domButton.style.width = '100px';
     domButton.style.height = '100px';
     domButton.style.zIndex = 1000;
