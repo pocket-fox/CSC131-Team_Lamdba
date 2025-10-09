@@ -83,8 +83,8 @@ var TitleState = {
     console.log(this.game.world.children);
 
     this.game.world.children.forEach(function(child) {
-      if (child instanceof Phaser.Button) {
-        console.log('Found a button: ', child.key, child.x, child.y, child.width, child.height);
+      if (child.inputEnabled) {
+        console.log('Found an interactable: ', child.key, child.x, child.y, child.width, child.height);
       }
     });
   },
