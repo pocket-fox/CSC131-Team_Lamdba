@@ -46,6 +46,7 @@ var TitleState = {
     domButton.style.top = (this.game.canvas.offsetTop + (0.68 * HEIGHT)) + 'px';
     domButton.style.width = '100px';
     domButton.style.height = '100px';
+    domButton.style.transform = 'translate(-50%, -50%)';
     domButton.style.zIndex = 1000;
     domButton.style.pointerEvents = 'auto';
     domButton.style.background = 'transparent';
