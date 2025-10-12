@@ -63,7 +63,7 @@ var TitleState = {
     AudioManager.playSong("title_music", this);
 
     // Dom Functionality
-    this.game.world.children.forEach(function(child, n) -> {
+    this.game.world.children.forEach(function(child, n) => {
       if (child.inputEnabled) {
         console.log('Found interactable ', n, ': ', child.key, child.x, child.y, child.width, child.height);
         var domButton = document.createElement('button');
