@@ -11,7 +11,7 @@ var TitleState = {
 
     this.game.canvas.setAttribute('role', 'img');
     this.game.canvas.setAttribute('aria-label', 'Game area. Use Tab or W A S D to move. Press Escape to exit game focus. Clicking on or refocusing the game via Tab will re-enable the games focus trap.');
-    this.game.canvas.setAttribute('tabindex', '0');
+    this.game.canvas.setAttribute('tabindex', '1');
     
     // Background
     this.backgroundSprite = this.add.sprite(0, 0, "background_1");
