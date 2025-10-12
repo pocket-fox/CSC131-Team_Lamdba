@@ -10,7 +10,8 @@ var TitleState = {
   create: function () {
 
     this.game.canvas.setAttribute('role', 'img');
-    // this.game.canvas.setAttribute('aria-label', 'Game canvas region')
+    this.game.canvas.setAttribute('aria-label', 'Game area. Use Tab or W A S D to move. Press Escape to exit game focus. Clicking on or refocusing the game via Tab will re-enable the games focus trap.');
+    this.game.canvas.setAttribute('tabindex', '0');
     
     // Background
     this.backgroundSprite = this.add.sprite(0, 0, "background_1");
@@ -70,7 +71,9 @@ var TitleState = {
       
     // Dom Functionality
     var self = this;
-    this.game.world.children.forEach(function(child, n) {
+    const startingTabIndex = 100
+    this.game.world.children.forEach(function(child, i) {
+      const n = i + startingTabIndex;
       if (child.inputEnabled) {
         console.log('Found interactable ', n, ': ', (child.name || child.key || 'button-${n}'), child.x, child.y, child.width, child.height);
         var domButton = document.createElement('button');
