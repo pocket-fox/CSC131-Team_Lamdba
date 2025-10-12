@@ -73,6 +73,7 @@ function createMuteButtonPos(scene, x, y) {
     indexAB,
     indexC
   );
+  scene.muteButton.name = 'Mute Button';
   scene.muteButton.scale.setTo(0.75);
   return scene.muteButton;
 }
