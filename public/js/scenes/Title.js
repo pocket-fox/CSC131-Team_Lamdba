@@ -70,7 +70,8 @@ var TitleState = {
     this.game.world.children.forEach(function(child) {
       
     // Dom Functionality
-    this.game.world.children.forEach(function(child, n) => {
+    var self = this;
+    this.game.world.children.forEach(function(child, n) {
       if (child.inputEnabled) {
         console.log('Found interactable ', n, ': ', child.key, child.x, child.y, child.width, child.height);
         var domButton = document.createElement('button');
@@ -79,8 +80,8 @@ var TitleState = {
         domButton.setAttribute('type', 'button');
 
         domButton.style.position = 'absolute';
-        domButton.style.left = (this.game.canvas.offsetLeft + child.x) + 'px';
-        domButton.style.top = (this.game.canvas.offsetTop + child.y) + 'px';
+        domButton.style.left = (self.game.canvas.offsetLeft + child.x) + 'px';
+        domButton.style.top = (self.game.canvas.offsetTop + child.y) + 'px';
         domButton.style.width = child.width + 'px';
         domButton.style.height = child.height + 'px';
         domButton.style.transform = 'translate(-50%, -50%)';
