@@ -73,7 +73,7 @@ var TitleState = {
     var self = this;
     this.game.world.children.forEach(function(child, n) {
       if (child.inputEnabled) {
-        console.log('Found interactable ', n, ': ', child.key, child.x, child.y, child.width, child.height);
+        console.log('Found interactable ', n, ': ', (child.name || child.key || 'button-${n}'), child.x, child.y, child.width, child.height);
         var domButton = document.createElement('button');
         domButton.setAttribute('aria-label', child.name || child.key || 'button-${n}');
         domButton.setAttribute('tabindex', String(n));
