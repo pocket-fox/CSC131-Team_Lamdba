@@ -48,7 +48,6 @@ var TitleState = {
       0,
       1
     );
-    this.playButton.anchor.setTo(0.5, 0.5);
     this.playButton.name = 'Play';
     this.add
       .tween(this.playButton.scale)
