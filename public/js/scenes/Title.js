@@ -82,13 +82,13 @@ var TitleState = {
         domButton.style.pointerEvents = 'auto';
         domButton.style.background = 'transparent';
         domButton.style.border = 'none';
+        domButton.addEventListener('click', self.playButtonActions.onClick.bind(self))
 
+        self.game.canvas.parentNode.appendChild(domButton);
         document.body.appendChild(domButton);
       }
     });
 
-    domButton.addEventListener('click', this.playButtonActions.onClick.bind(this))
-    this.game.canvas.parentNode.appendChild(domButton);
     
 
   },
