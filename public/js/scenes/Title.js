@@ -67,37 +67,56 @@ var TitleState = {
     var self = this;
     const startingTabIndex = 100
     this.game.world.children.forEach(function(child, i) {
-      const n = i + startingTabIndex;
-      if (child.inputEnabled) {
-        console.log('Found interactable ', n, ': ', (child.name || child.key || 'button-${n}'), child.x, child.y, child.width, child.height);
-        var domButton = document.createElement('button');
-        domButton.setAttribute('aria-label', child.name || child.key || `button-${n}`);
-        domButton.setAttribute('tabindex', String(n));
-        domButton.setAttribute('type', 'button');
 
-        domButton.style.position = 'absolute';
-        domButton.style.left = (self.game.canvas.offsetLeft + child.x) + 'px';
-        domButton.style.top = (self.game.canvas.offsetTop + child.y) + 'px';
-        domButton.style.width = child.width + 'px';
-        domButton.style.height = child.height + 'px';
-        domButton.style.zIndex = 1000;
-        domButton.style.pointerEvents = 'auto';
-        domButton.style.background = 'transparent';
-        domButton.style.border = 'none';
-        domButton.addEventListener('click', function() {
+      if (!(child instanceof Phaser.Button) && !(child instanceof Phaser.Text)) return;
+
+      const n = i + startingTabIndex;
+      var domElement = null;
+      var label = (child.ariaLabel || child.key || `button-${n}`);
+      
+      if (child instanceof Phaser.Button) {
+        console.log('Found interactable item', n, ': ', (child.name || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
+        domElement = document.createElement('button');
+        domElement.setAttribute('type', 'button');
+        domElement.setAttribute('aria-label', label);
+        
+        domElement.addEventListener('click', function() {
           let ptr = null;
           if (self.game && self.game.input) {
-            ptr = self.game.input.activePointer;
+            pointer = self.game.input.activePointer;
           }
           if (typeof child.callback === 'function') {
-            child.callback.call(child.callbackContext || child, child, ptr, true);
+            child.callback.call(child.callbackContext || child, child, pointer, true);
           } else {
-            child.onInputUp.dispatch(child, ptr, true);
+            child.onInputUp.dispatch(child, pointer, true);
           }
         });
 
-        self.game.canvas.parentNode.appendChild(domButton);
-        self.domElements.push(domButton);
+      } else
+      if (child instanceof Phaser.Text) {
+        console.log('Found text item', n, ': ', (child.name || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
+        domElement = document.createElement('p');
+        domElement.setAttribute('aria-label', String(child.text) || '')
+        
+      }
+
+      if (!domElement) return;
+      
+
+      // Things to do to both Buttons and Text
+      domElement.setAttribute('tabindex', String(n));
+      domElement.style.position = 'absolute';
+      domElement.style.left = (self.game.canvas.offsetLeft + child.x) + 'px';
+      domElement.style.top = (self.game.canvas.offsetTop + child.y) + 'px';
+      domElement.style.width = child.width + 'px';
+      domElement.style.height = child.height + 'px';
+      domElement.style.zIndex = 1000;
+      domElement.style.pointerEvents = 'auto';
+      domElement.style.background = 'transparent';
+      domElement.style.border = 'none';
+
+      self.game.canvas.parentNode.appendChild(domElement);
+      self.domElements.push(domElement);
       }
     });
 
