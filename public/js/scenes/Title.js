@@ -11,7 +11,7 @@ var TitleState = {
 
     this.game.canvas.setAttribute('role', 'img');
     // this.game.canvas.setAttribute('aria-hidden', 'true');
-    this.game.canvas.setAttribute('tabindex', '-1');
+    this.game.canvas.setAttribute('tabindex', '1');
     
     // Background
     this.backgroundSprite = this.add.sprite(0, 0, "background_1");
