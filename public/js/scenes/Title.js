@@ -149,7 +149,7 @@ var TitleState = {
 
   },
   shutdown: function () {
-    console.log("shutting down Title.js...");
+    console.log("shutting down AdvancedTitle.js...");
 
     if (this.a11y) { this.a11y.destroy(); this.a11y = null; }
     if (this.domElements) { A11yKit.destroyDomOverlays(this.domElements); this.domElements = null };
