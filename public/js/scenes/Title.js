@@ -70,7 +70,7 @@ var TitleState = {
     this.game.world.children.forEach(function(child) {
       
     // Dom Functionality
-    var domElements = new Array();
+    this.domElements = new Array();
     var self = this;
     const startingTabIndex = 100
     this.game.world.children.forEach(function(child, i) {
