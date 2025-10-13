@@ -70,7 +70,7 @@ var TitleState = {
     this.game.world.children.forEach(function(child) {
       
     // Dom Functionality
-    this.a11y = A11yLive.init(this.game.canvs.parentNode, { live: 'polite'});
+    this.a11y = A11yLive.init(this.game.canvas.parentNode, { live: 'polite'});
     this.a11y.announce(
       'Professor Davis Green Prevents Stormwater Pollution. Press Question Mark to view controls.'
     )
