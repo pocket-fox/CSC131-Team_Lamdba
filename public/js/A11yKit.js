@@ -159,6 +159,122 @@
     this.onDisable = null;
   };
 
+    // ---------- Phaser overlay builder ----------
+  // Recursively walk a Phaser.Group / World and collect Buttons + Text
+  function _collectInteractables(phaserGroup, out) {
+    if (!phaserGroup || !phaserGroup.children) return out;
+    for (var i = 0; i < phaserGroup.children.length; i++) {
+      var child = phaserGroup.children[i];
+      if (child instanceof Phaser.Group) {
+        _collectInteractables(child, out);
+      } else if (child instanceof Phaser.Button || child instanceof Phaser.Text) {
+        out.push(child);
+      }
+    }
+    return out;
+  }
+
+  // Create a DOM overlay element for a given Phaser child
+  function _makeDomForChild(game, child, tabIndex) {
+    var parent = game.canvas.parentNode;
+    var el = null;
+    var label = (child.ariaLabel || child.key || ('item-' + tabIndex));
+
+    if (child instanceof Phaser.Button) {
+      el = document.createElement('button');
+      el.setAttribute('type', 'button');
+      el.setAttribute('aria-label', label);
+
+      // Wire DOM click to Phaser button behavior
+      var handler = function () {
+        var ptr = null;
+        if (game && game.input) { ptr = game.input.activePointer; }
+        if (typeof child.callback === 'function') {
+          child.callback.call(child.callbackContext || child, child, ptr, true);
+        } else {
+          child.onInputUp.dispatch(child, ptr, true);
+        }
+      };
+      el.addEventListener('click', handler);
+      el._onClick = handler; // stash for cleanup
+
+    } else { // Phaser.Text
+      el = document.createElement('p');
+      var txt = (child.text == null) ? '' : String(child.text);
+      el.textContent = txt;
+      el.setAttribute('aria-label', txt);
+      // If you want SR-only text, apply a class the app defines:
+      // el.className = 'sr-only';
+    }
+
+    // Common positioning/styling
+    el.setAttribute('tabindex', String(tabIndex));
+    el.style.position = 'absolute';
+    el.style.left   = (game.canvas.offsetLeft + child.x) + 'px';
+    el.style.top    = (game.canvas.offsetTop  + child.y) + 'px';
+    el.style.width  = child.width  + 'px';
+    el.style.height = child.height + 'px';
+    el.style.zIndex = 1000;
+    el.style.pointerEvents = 'auto';
+    el.style.background = 'transparent';
+    el.style.border = 'none';
+
+    parent.appendChild(el);
+    return el;
+  }
+
+  /**
+   * Build DOM overlays for all Phaser.Button and Phaser.Text in the world (and groups).
+   * @param {Phaser.Game} game
+   * @param {Object} [opts]  { startTabIndex: number }
+   * @returns {{domElements: HTMLElement[], focusables: HTMLElement[]}}
+   */
+  function buildDomOverlaysFromWorld(game, opts) {
+    var startTab = (opts && typeof opts.startTabIndex === 'number') ? opts.startTabIndex : 100;
+    var list = _collectInteractables(game.world, []);
+    var doms = [];
+
+    for (var i = 0; i < list.length; i++) {
+      // Only mirror actually interactive Buttons or any Text
+      var child = list[i];
+      if (child instanceof Phaser.Button && !child.inputEnabled) {
+        continue;
+      }
+      var el = _makeDomForChild(game, child, startTab + i);
+      doms.push(el);
+    }
+
+    // Focusables: usually canvas + all doms; the caller can prepend canvas
+    return { domElements: doms, focusables: doms.slice() };
+  }
+
+    /**
+   * Safely remove and clean up a list of DOM overlay elements created by A11yKit.
+   * @param {HTMLElement[]} domElements
+   */
+  function destroyDomOverlays(domElements) {
+    if (!domElements || !domElements.length) return;
+
+    for (var i = 0; i < domElements.length; i++) {
+      var el = domElements[i];
+      if (!el) continue;
+
+      // Remove stored event listener if present
+      if (el._onClick) {
+        el.removeEventListener('click', el._onClick);
+        el._onClick = null;
+      }
+
+      // Remove from DOM tree
+      if (el.parentNode) {
+        el.parentNode.removeChild(el);
+      }
+    }
+
+    // Clear and release the array reference
+    domElements.length = 0;
+  }
+
   // ---------- Unified Kit ----------
   var A11yKit = {
     /**
@@ -201,6 +317,12 @@
           announcer.destroy();
         }
       };
+    },
+    buildDomOverlaysFromWorld: function (game, opts) {
+      return buildDomOverlaysFromWorld(game, opts || {});
+    },
+    destroyDomOverlays: function (domElements) {
+      destroyDomOverlays(domElements);
     }
   };
 
