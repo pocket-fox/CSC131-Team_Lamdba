@@ -63,66 +63,10 @@ var TitleState = {
     AudioManager.playSong("title_music", this);
 
     // Dom Functionality
-
     var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
     this.domElements = domOverlays.domElements;
-    // this.domElements = new Array();
     var focusables = [ this.game.canvas ].concat(domOverlays.focusables);
     var self = this;
-
-    // const startingTabIndex = 100
-    
-    // this.game.world.children.forEach(function(child, i) {
-
-    //   if (!(child instanceof Phaser.Button) && !(child instanceof Phaser.Text)) return;
-
-    //   const n = i + startingTabIndex;
-    //   var domElement = null;
-    //   var label = (child.ariaLabel || child.key || `button-${n}`);
-      
-    //   if (child instanceof Phaser.Button) {
-    //     console.log('Found interactable item', n, ': ', (child.ariaLabel || child.key ||
-    //       `button-${n}`), child.x, child.y, child.width, child.height);
-    //     domElement = document.createElement('button');
-    //     domElement.setAttribute('type', 'button');
-    //     domElement.setAttribute('aria-label', label);
-        
-    //     domElement.addEventListener('click', function() {
-    //       let pointer = null;
-    //       if (self.game && self.game.input) {
-    //         pointer = self.game.input.activePointer;
-    //       }
-    //       if (typeof child.callback === 'function') {
-    //         child.callback.call(child.callbackContext || child, child, pointer, true);
-    //       } else {
-    //         child.onInputUp.dispatch(child, pointer, true);
-    //       }
-    //     });
-    //   } else if (child instanceof Phaser.Text) {
-    //     console.log('Found text item', n, ': ', (child.ariaLabel || child.key || `button-${n}`),
-    //       child.x, child.y, child.width, child.height);
-    //     domElement = document.createElement('p');
-    //     domElement.setAttribute('aria-label', String(child.text) || '')
-    //   }
-
-    //   if (!domElement) return;
-      
-
-    //   // Things to do to both Buttons and Text
-    //   domElement.setAttribute('tabindex', String(n));
-    //   domElement.style.position = 'absolute';
-    //   domElement.style.left = (self.game.canvas.offsetLeft + child.x) + 'px';
-    //   domElement.style.top = (self.game.canvas.offsetTop + child.y) + 'px';
-    //   domElement.style.width = child.width + 'px';
-    //   domElement.style.height = child.height + 'px';
-    //   domElement.style.zIndex = 1000;
-    //   domElement.style.pointerEvents = 'auto';
-    //   domElement.style.background = 'transparent';
-    //   domElement.style.border = 'none';
-
-    //   self.game.canvas.parentNode.appendChild(domElement);
-    //   self.domElements.push(domElement);
-    // });
 
     this.a11y = A11yKit.init({
       parent: this.game.canvas.parentNode,
@@ -146,13 +90,6 @@ var TitleState = {
 
     if (this.a11y) { this.a11y.destroy(); this.a11y = null; }
     if (this.domElements) { A11yKit.destroyDomOverlays(this.domElements); this.domElements = null };
-    // if (this.domElements) {
-    //   this.domElements.forEach(function(element) {
-    //     if (element.parentNode) element.parentNode.removeChild(element);
-    //     element.replaceWith(element.cloneNode(true));
-    //   });
-    //   this.domElements = [];
-    // }
   },
   update: function () {
     updateCloudSprites(this);
