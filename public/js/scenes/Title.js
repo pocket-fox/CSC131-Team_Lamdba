@@ -103,8 +103,8 @@ var TitleState = {
 
   },
   shutdown: function () {
+    console.log("shutting down Title.js...");
     if (this.domElements) {
-      console.log("shutting down Title.js...");
       this.domElements.forEach(function(element) {
         if (element.parentNode) element.parentNode.removeChild(element);
       });
