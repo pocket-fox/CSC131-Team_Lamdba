@@ -20,6 +20,7 @@
             typst
 
             nodejs
+            typescript-language-server
 
             # Necessary for local testing of github actions
             act
