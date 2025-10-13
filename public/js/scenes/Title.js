@@ -63,7 +63,7 @@ var TitleState = {
     AudioManager.playSong("title_music", this);
 
     // Dom Functionality
-    var domElements = new Array();
+    this.domElements = new Array();
     var self = this;
     const startingTabIndex = 100
     this.game.world.children.forEach(function(child, i) {
