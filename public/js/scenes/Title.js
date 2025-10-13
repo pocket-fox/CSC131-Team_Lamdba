@@ -5,7 +5,7 @@ var TitleState = {
   _a11yRoot: null,
   _live: null,
   _label: null,
-  domElements = [];
+  domElements = [],
   
   preload: function () {},
   create: function () {
