@@ -5,6 +5,7 @@ var TitleState = {
   _a11yRoot: null,
   _live: null,
   _label: null,
+  var domElements = new Array();
   
   preload: function () {},
   create: function () {
@@ -70,7 +71,6 @@ var TitleState = {
     this.game.world.children.forEach(function(child) {
       
     // Dom Functionality
-    var domElements = new Array();
     var self = this;
     const startingTabIndex = 100
     this.game.world.children.forEach(function(child, i) {
