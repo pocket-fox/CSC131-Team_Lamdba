@@ -63,6 +63,11 @@ var TitleState = {
     AudioManager.playSong("title_music", this);
 
     // Dom Functionality
+    this.a11y = A11yLive.init(this.game.canvs.parentNode, { live: 'polite'});
+    this.a11y.announce(
+      'Professor Davis Green Prevents Stormwater Pollution. Press Question Mark to view controls.'
+    )
+    
     this.domElements = new Array();
     var self = this;
     const startingTabIndex = 100
@@ -75,7 +80,8 @@ var TitleState = {
       var label = (child.ariaLabel || child.key || `button-${n}`);
       
       if (child instanceof Phaser.Button) {
-        console.log('Found interactable item', n, ': ', (child.ariaLabel || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
+        console.log('Found interactable item', n, ': ', (child.ariaLabel || child.key ||
+          `button-${n}`), child.x, child.y, child.width, child.height);
         domElement = document.createElement('button');
         domElement.setAttribute('type', 'button');
         domElement.setAttribute('aria-label', label);
@@ -92,7 +98,8 @@ var TitleState = {
           }
         });
       } else if (child instanceof Phaser.Text) {
-        console.log('Found text item', n, ': ', (child.ariaLabel || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
+        console.log('Found text item', n, ': ', (child.ariaLabel || child.key || `button-${n}`),
+          child.x, child.y, child.width, child.height);
         domElement = document.createElement('p');
         domElement.setAttribute('aria-label', String(child.text) || '')
       }
