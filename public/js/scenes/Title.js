@@ -80,12 +80,21 @@ var TitleState = {
         domButton.style.top = (self.game.canvas.offsetTop + child.y) + 'px';
         domButton.style.width = child.width + 'px';
         domButton.style.height = child.height + 'px';
-        // domButton.style.transform = 'translate(-50%, -50%)';
         domButton.style.zIndex = 1000;
         domButton.style.pointerEvents = 'auto';
         domButton.style.background = 'transparent';
         domButton.style.border = 'none';
-        domButton.addEventListener('click', self.playButtonActions.onClick.bind(self))
+        domButton.addEventListener('click', function() {
+          let ptr = null;
+          if (self.game && self.game.input) {
+            ptr = self.game.input.activePointer;
+          }
+          if (typeof child.callback === 'function') {
+            child.callback.call(child.callbackContext || child, child, ptr, true);
+          } else {
+            child.onInputUp.dispatch(child, ptr, true);
+          }
+        });
 
         self.game.canvas.parentNode.appendChild(domButton);
         self.domElements.push(domButton);
