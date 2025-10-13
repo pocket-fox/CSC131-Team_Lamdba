@@ -49,7 +49,7 @@ var TitleState = {
       0,
       1
     );
-    this.playButton.name = 'Play';
+    this.playButton.ariaLabel = 'Play';
     this.add
       .tween(this.playButton.scale)
       .to({ x: 1.1, y: 1.1 }, 600, "Linear", true)
@@ -75,7 +75,7 @@ var TitleState = {
       var label = (child.ariaLabel || child.key || `button-${n}`);
       
       if (child instanceof Phaser.Button) {
-        console.log('Found interactable item', n, ': ', (child.name || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
+        console.log('Found interactable item', n, ': ', (child.ariaLabel || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
         domElement = document.createElement('button');
         domElement.setAttribute('type', 'button');
         domElement.setAttribute('aria-label', label);
@@ -92,7 +92,7 @@ var TitleState = {
           }
         });
       } else if (child instanceof Phaser.Text) {
-        console.log('Found text item', n, ': ', (child.name || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
+        console.log('Found text item', n, ': ', (child.ariaLabel || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
         domElement = document.createElement('p');
         domElement.setAttribute('aria-label', String(child.text) || '')
       }
