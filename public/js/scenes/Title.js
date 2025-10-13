@@ -11,7 +11,7 @@ var TitleState = {
 
     this.game.canvas.setAttribute('role', 'img');
     this.game.canvas.setAttribute('aria-hidden', 'true');
-    this.game.canvas.setAttribute('tabindex', '1');
+    this.game.canvas.setAttribute('tabindex', '-1');
     
     // Background
     this.backgroundSprite = this.add.sprite(0, 0, "background_1");
@@ -65,7 +65,7 @@ var TitleState = {
     // Dom Functionality
     this.a11y = A11yLive.init(this.game.canvas.parentNode, { live: 'polite'});
     this.a11y.announce(
-      'Professor Davis Green Prevents Stormwater Pollution. Press Question Mark to view controls.'
+      'Professor Davis Green Prevents Stormwater Pollution. Press Question Mark to hear controls.'
     )
     
     this.domElements = new Array();
