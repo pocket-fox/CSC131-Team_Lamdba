@@ -124,7 +124,6 @@ var TitleState = {
 
       self.game.canvas.parentNode.appendChild(domElement);
       self.domElements.push(domElement);
-      }
     });
 
     
