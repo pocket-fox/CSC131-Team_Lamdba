@@ -10,7 +10,7 @@ var TitleState = {
   create: function () {
 
     this.game.canvas.setAttribute('role', 'img');
-    this.game.canvas.setAttribute('aria-label', 'Game area. Use Tab or W A S D to move. Press Escape to exit game focus. Clicking on or refocusing the game via Tab will re-enable the games focus trap.');
+    this.game.canvas.setAttribute('aria-label', 'Professor Davis Green Prevents Stormwater Pollution. Use Tab to move through selections or 1 2 & 3 to directly select an answer. Press Escape to disable the games focus trap. Clicking on or refocusing the game via Tab will re-enable the games focus trap. Press ? for help.');
     this.game.canvas.setAttribute('tabindex', '1');
     
     // Background
@@ -63,6 +63,7 @@ var TitleState = {
     AudioManager.playSong("title_music", this);
 
     // Dom Functionality
+    var domElements = new Array();
     var self = this;
     const startingTabIndex = 100
     this.game.world.children.forEach(function(child, i) {
@@ -87,7 +88,7 @@ var TitleState = {
         domButton.addEventListener('click', self.playButtonActions.onClick.bind(self))
 
         self.game.canvas.parentNode.appendChild(domButton);
-        document.body.appendChild(domButton);
+        domElements.push(domButton);
       }
     });
 
@@ -96,6 +97,14 @@ var TitleState = {
   },
   update: function () {
     updateCloudSprites(this);
+  },
+  shutdown: function () {
+    if (this.domElements) {
+      this.domElements.forEach(function(element) {
+        if (element.parentNode) element.parentNode.removeChild(element);
+      });
+      this.domElements = [];
+    }
   },
   playButtonActions: {
     onClick: function () {
