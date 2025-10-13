@@ -63,11 +63,10 @@ var TitleState = {
     AudioManager.playSong("title_music", this);
 
     // Dom Functionality
-    this.a11y = A11yLive.init(this.game.canvas.parentNode, { live: 'polite'});
-    
     this.domElements = new Array();
     var self = this;
     const startingTabIndex = 100
+    
     this.game.world.children.forEach(function(child, i) {
 
       if (!(child instanceof Phaser.Button) && !(child instanceof Phaser.Text)) return;
@@ -120,6 +119,17 @@ var TitleState = {
       self.domElements.push(domElement);
     });
 
+    this.a11y = A11yKit.init({
+      parent: this.game.canvas.parentNode,
+      elements: this.domElements,
+      escapeKey: 'Escape',
+      live: 'polite',
+      onEnable: function(){ self.a11y.announce('Game focused.'); },
+      onDisable: function(){ self.a11y.announce('Game focus released'); }
+    });
+
+    this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true)
+    this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true)
     
     this.a11y.announce(
       'Professor Davis Green Prevents Stormwater Pollution. Press Question Mark to hear controls.'
@@ -128,6 +138,8 @@ var TitleState = {
   },
   shutdown: function () {
     console.log("shutting down Title.js...");
+
+    if (this.a11y) { this.a11y.destroy(); this.a11y = null; }
     if (this.domElements) {
       this.domElements.forEach(function(element) {
         if (element.parentNode) element.parentNode.removeChild(element);
