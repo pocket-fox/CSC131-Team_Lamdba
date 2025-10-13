@@ -102,9 +102,6 @@ var TitleState = {
     
 
   },
-  update: function () {
-    updateCloudSprites(this);
-  },
   shutdown: function () {
     if (this.domElements) {
       this.domElements.forEach(function(element) {
@@ -112,6 +109,9 @@ var TitleState = {
       });
       this.domElements = [];
     }
+  },
+  update: function () {
+    updateCloudSprites(this);
   },
   playButtonActions: {
     onClick: function () {
