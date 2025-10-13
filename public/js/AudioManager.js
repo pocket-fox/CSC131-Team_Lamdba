@@ -56,7 +56,7 @@ function createMuteButton(scene) {
     indexAB,
     indexC
   );
-  scene.muteButton.name = 'Mute';
+  scene.muteButton.ariaLabel = 'Mute';
   scene.muteButton.scale.setTo(0.75);
   return scene.muteButton;
 }
