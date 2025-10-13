@@ -10,7 +10,7 @@ var TitleState = {
   create: function () {
 
     this.game.canvas.setAttribute('role', 'img');
-    this.game.canvas.setAttribute('aria-label', 'Professor Davis Green Prevents Stormwater Pollution. Use Tab to move through selections or 1 2 & 3 to directly select an answer. Press Escape to disable the games focus trap. Clicking on or refocusing the game via Tab will re-enable the games focus trap. Press ? for help.');
+    this.game.canvas.setAttribute('aria-hidden', 'true');
     this.game.canvas.setAttribute('tabindex', '1');
     
     // Background
@@ -98,13 +98,10 @@ var TitleState = {
             child.onInputUp.dispatch(child, pointer, true);
           }
         });
-
-      } else
-      if (child instanceof Phaser.Text) {
+      } else if (child instanceof Phaser.Text) {
         console.log('Found text item', n, ': ', (child.name || child.key || `button-${n}`), child.x, child.y, child.width, child.height);
         domElement = document.createElement('p');
         domElement.setAttribute('aria-label', String(child.text) || '')
-        
       }
 
       if (!domElement) return;
