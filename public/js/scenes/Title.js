@@ -5,7 +5,6 @@ var TitleState = {
   _a11yRoot: null,
   _live: null,
   _label: null,
-  domElements = new Array(),
   
   preload: function () {},
   create: function () {
@@ -64,6 +63,7 @@ var TitleState = {
     AudioManager.playSong("title_music", this);
 
     // Dom Functionality
+    var domElements = new Array();
     var self = this;
     const startingTabIndex = 100
     this.game.world.children.forEach(function(child, i) {
@@ -71,7 +71,7 @@ var TitleState = {
       if (child.inputEnabled) {
         console.log('Found interactable ', n, ': ', (child.name || child.key || 'button-${n}'), child.x, child.y, child.width, child.height);
         var domButton = document.createElement('button');
-        domButton.setAttribute('aria-label', child.name || child.key || 'button-${n}');
+        domButton.setAttribute('aria-label', child.name || child.key || `button-${n}`);
         domButton.setAttribute('tabindex', String(n));
         domButton.setAttribute('type', 'button');
 
@@ -88,7 +88,7 @@ var TitleState = {
         domButton.addEventListener('click', self.playButtonActions.onClick.bind(self))
 
         self.game.canvas.parentNode.appendChild(domButton);
-        domElements.push(domButton);
+        self.domElements.push(domButton);
       }
     });
 
@@ -100,6 +100,7 @@ var TitleState = {
     if (this.domElements) {
       this.domElements.forEach(function(element) {
         if (element.parentNode) element.parentNode.removeChild(element);
+        element.replaceWith(element.cloneNode(true));
       });
       this.domElements = [];
     }
