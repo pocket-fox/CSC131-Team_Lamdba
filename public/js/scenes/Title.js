@@ -88,7 +88,7 @@ var TitleState = {
         domElement.setAttribute('aria-label', label);
         
         domElement.addEventListener('click', function() {
-          let ptr = null;
+          let pointer = null;
           if (self.game && self.game.input) {
             pointer = self.game.input.activePointer;
           }
