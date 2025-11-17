@@ -80,6 +80,7 @@ var TitleState = {
     // Keyboard spacebar to start game
     this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
       .onDown.add(this.playButtonActions.onClick, this);
+    console.log(this.game.world.children);
   },
   update: function () {
     updateCloudSprites(this);
