@@ -38,22 +38,6 @@ var TitleState = {
     );
 
     // Buttons
-    var domButton = document.createElement('button');
-    domButton.setAttribute('aria-label', 'Banana');
-    domButton.setAttribute('tabindex', '0');
-    domButton.style.position = 'absolute';
-    domButton.style.left = (this.game.canvas.offsetLeft + (0.3 * WIDTH)) + 'px';
-    domButton.style.top = (this.game.canvas.offsetTop + (0.68 * HEIGHT)) + 'px';
-    domButton.style.width = '100px';
-    domButton.style.height = '100px';
-    domButton.style.transform = 'translate(-50%, -50%)';
-    domButton.style.zIndex = 1000;
-    domButton.style.pointerEvents = 'auto';
-    domButton.style.background = 'transparent';
-    domButton.style.border = 'none';
-    domButton.addEventListener('click', this.playButtonActions.onClick.bind(this))
-    this.game.canvas.parentNode.appendChild(domButton);
-    
     this.playButton = this.add.button(
       0.3 * WIDTH,
       0.68 * HEIGHT,
@@ -65,6 +49,7 @@ var TitleState = {
       1
     );
     this.playButton.anchor.setTo(0.5, 0.5);
+    this.playButton.name = 'Play Button';
     this.add
       .tween(this.playButton.scale)
       .to({ x: 1.1, y: 1.1 }, 600, "Linear", true)
@@ -83,10 +68,35 @@ var TitleState = {
     console.log(this.game.world.children);
 
     this.game.world.children.forEach(function(child) {
+      
+    // Dom Functionality
+    this.game.world.children.forEach(function(child, n) -> {
       if (child.inputEnabled) {
-        console.log('Found an interactable: ', child.key, child.x, child.y, child.width, child.height);
+        console.log('Found interactable ', n, ': ', child.key, child.x, child.y, child.width, child.height);
+        var domButton = document.createElement('button');
+        domButton.setAttribute('aria-label', child.name || child.key || 'button-${n}');
+        domButton.setAttribute('tabindex', String(n));
+        domButton.setAttribute('type', 'button');
+
+        domButton.style.position = 'absolute';
+        domButton.style.left = (this.game.canvas.offsetLeft + child.x) + 'px';
+        domButton.style.top = (this.game.canvas.offsetTop + child.y) + 'px';
+        domButton.style.width = child.width + 'px';
+        domButton.style.height = child.height + 'px';
+        domButton.style.transform = 'translate(-50%, -50%)';
+        domButton.style.zIndex = 1000;
+        domButton.style.pointerEvents = 'auto';
+        domButton.style.background = 'transparent';
+        domButton.style.border = 'none';
+
+        document.body.appendChild(domButton);
       }
     });
+
+    domButton.addEventListener('click', this.playButtonActions.onClick.bind(this))
+    this.game.canvas.parentNode.appendChild(domButton);
+    
+
   },
   update: function () {
     updateCloudSprites(this);
