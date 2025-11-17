@@ -25,7 +25,7 @@
 
     <script type="text/javascript" src="phaser.min.js"></script>
 
-    <script type="text/javascript" src="js/Main.js"></script>
+
     <script type="text/javascript" src="js/AudioManager.js"></script>
 
     <script type="text/javascript" src="js/GameData.js"></script>
@@ -33,11 +33,11 @@
 
     <script type="text/javascript" src="js/scenes/Boot.js"></script>
     <script type="text/javascript" src="js/scenes/Load.js"></script>
+      <script type="text/javascript" src="js/scenes/Start.js"></script> <!-- added to run start.js -->
     <script type="text/javascript" src="js/scenes/Title.js"></script>
     <script type="text/javascript" src="js/scenes/Intro.js"></script>
     <script type="text/javascript" src="js/scenes/ChooseGame.js"></script>
     <script type="text/javascript" src="js/scenes/Pause.js"></script>
-
     <script type="text/javascript" src="js/scenes/pp/PPIntro.js"></script>
     <script type="text/javascript" src="js/scenes/pp/PPQuestion.js"></script>
     <script type="text/javascript" src="js/scenes/pp/PPRain.js"></script>
@@ -48,9 +48,18 @@
     <script type="text/javascript" src="js/scenes/ff/FFIntro.js"></script>
     <script type="text/javascript" src="js/scenes/ff/FFGame.js"></script>
     <script type="text/javascript" src="js/scenes/ff/FFScore.js"></script>
+
+      <script type="text/javascript" src="js/Main.js"></script> <!-- moved main last -->
   </head>
   <body>
     <div id="gameDiv"></div>
     <div id="orientation"></div>
+
+    <!--screen reader, aria-live-->
+    <div id="screenreader-text"
+         aria-live="polite"
+         style="position: absolute; left: -9999px; height: 1px; width: 1px; overflow: hidden;">
+    </div>m
+
   </body>
 </html>
