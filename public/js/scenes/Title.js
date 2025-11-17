@@ -67,8 +67,6 @@ var TitleState = {
       .onDown.add(this.playButtonActions.onClick, this);
     console.log(this.game.world.children);
 
-    this.game.world.children.forEach(function(child) {
-      
     // Dom Functionality
     var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
     this.domElements = domOverlays.domElements;
