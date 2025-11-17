@@ -81,6 +81,12 @@ var TitleState = {
     this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
       .onDown.add(this.playButtonActions.onClick, this);
     console.log(this.game.world.children);
+
+    this.game.world.children.forEach(function(child) {
+      if (child instanceof Phaser.Button) {
+        console.log('Found a button: ', child.key, child.x, child.y, child.width, child.height);
+      }
+    });
   },
   update: function () {
     updateCloudSprites(this);
