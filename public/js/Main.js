@@ -9,6 +9,7 @@ window.onload = function () {
 
   Game.state.add("BootState", BootState);
   Game.state.add("LoadState", LoadState);
+  Game.state.add("StartState", StartState); // added to launch start.js
   Game.state.add("TitleState", TitleState);
   Game.state.add("IntroState", IntroState);
   Game.state.add("ChooseGameState", ChooseGameState);

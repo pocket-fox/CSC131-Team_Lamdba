@@ -37,8 +37,10 @@ var LoadState = {
     // Titles
     this.load.image("title_prevents", "assets/title/prevents.png");
     this.load.image("title_professor", "assets/title/professor.png");
+    this.load.image("title_Control", "assets/title/Control.png"); // load in the control image for starter.js
 
-    // Characters
+
+      // Characters
     this.load.image("professor_1", "assets/professor/1.png");
     this.load.image("professor_2", "assets/professor/2.png");
     this.load.image("professor_3", "assets/professor/3.png");
@@ -375,6 +377,6 @@ var LoadState = {
     );
   },
   create: function () {
-    this.state.start("TitleState");
+    this.state.start("StartState");
   },
 };
