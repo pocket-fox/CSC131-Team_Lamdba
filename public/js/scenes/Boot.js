@@ -3,7 +3,6 @@
 var BootState = {
   init: function () {
     if (this.game.device.desktop) {
-      this.game.canvas.setAttribute
       this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
       this.scale.setMinMax(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT);
       this.scale.pageAlignHorizontally = true;

@@ -45,11 +45,6 @@ var PauseState = {
       1
     );
     this.resumeButton.anchor.setTo(0.5, 0.5);
-
-    // Keyboard spacebar to resume
-    this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-      .onDown.add(this.resumeButtonActions.onClick, this);
-
     this.add
       .tween(this.resumeButton.scale)
       .to({ x: 1.1, y: 1.1 }, 600, "Linear", true)

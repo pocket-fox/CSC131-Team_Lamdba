@@ -56,6 +56,28 @@ var TitleState = {
       .yoyo(true, 0)
       .loop(true);
 
+    //*****************************************************************
+      // captures enter key
+      this.spaceKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
+
+      // debug message + button click (open in browser, press f12)
+      this.spaceKey.onDown.add(function () {
+          console.log("Enter pressed on Title screen!");
+          this.playButtonActions.onClick.call(this);
+      }, this);
+
+      // captures m key
+      this.mKey = this.input.keyboard.addKey(Phaser.Keyboard.M);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.M]);
+
+      // mutes when m is pressed + debug (open in browser, press f12)
+      this.mKey.onDown.add(function () {
+          console.log("M key pressed — toggling mute");
+          AudioManager.toggleMusic(this);
+      }, this);
+    //******************************************************************
+
     // Mute button
     createMuteButton(this);
 
@@ -67,7 +89,6 @@ var TitleState = {
       .onDown.add(this.playButtonActions.onClick, this);
     console.log(this.game.world.children);
 
-    this.game.world.children.forEach(function(child) {
       
     // Dom Functionality
     var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
