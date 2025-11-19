@@ -94,14 +94,55 @@ var PauseState = {
       .to({ x: 1.1, y: 1.1 }, 600, "Linear", true)
       .yoyo(true, 0)
       .loop(true);
+
+      // captures m key
+      this.mKey = this.input.keyboard.addKey(Phaser.Keyboard.M);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.M]);
+
+      // mutes when m is pressed + debug (open in browser, press f12)
+      this.mKey.onDown.add(function () {
+          console.log("M key pressed — toggling mute");
+          AudioManager.toggleMusic(this);
+      }, this);
+
+      // / to open button map
+      this.slashKey = this.input.keyboard.addKey(191); // "/" key
+      this.shiftKey = this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+      this.switching = false;
+
+      // captures P key to resume
+      this.pKey = this.input.keyboard.addKey(Phaser.Keyboard.P);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.P]);
+
+      this.pKey.onDown.add(function () {
+          console.log("P pressed in PauseState — resuming");
+          this.resumeButtonActions.onClick.call(this);
+      }, this);
   },
+
   update: function () {
     updateCloudSprites(this);
+      updateCloudSprites(this);
+      if (this.slashKey && !this.switching && this.slashKey.justDown) {
+          this.switching = true;
+          console.log("/ pressed in PauseState");
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+
+          this.state.start("StartState");
+
+          this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+              this.switching = false;
+          }, this);
+      }
   },
   resumeButtonActions: {
     onClick: function () {
       AudioManager.playSound("bloop_sfx", this);
-      this.state.start(LastState);
+      this.state.start(lastState || "TitleState");
     },
   },
   restartButtonActions: {
@@ -117,7 +158,7 @@ var PauseState = {
       AudioManager.playSound("bloop_sfx", this);
       FFGame.reset();
       PPGame.reset();
-      this.state.start("ChooseGameState");
+      this.state.start("TitleState");
     },
   },
 };

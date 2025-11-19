@@ -41,7 +41,7 @@ var StartState = {
 
             // Buttons
             this.playButton = this.add.button(
-                0.3 * WIDTH,
+                0.2 * WIDTH,
                 0.68 * HEIGHT,
                 "button_play",
                 this.playButtonActions.onClick,
@@ -80,8 +80,30 @@ var StartState = {
             // Mute button
             createMuteButton(this);
 
+            // Pause Button
+            var onPause = function () {
+                AudioManager.playSound("bloop_sfx", this);
+                LastState = "PPQuestionState";
+                this.state.start("PauseState");
+            };
+            this.pauseButton = this.add.button(
+                0.892 * WIDTH,
+                0.185 * HEIGHT,
+                "button_pause",
+                onPause,
+                this,
+                0,
+                0,
+                1
+            );
+            this.pauseButton.scale.setTo(0.75);
+
             // Audio
             AudioManager.playSong("title_music", this);
+
+            this.slashKey = this.input.keyboard.addKey(191);
+            this.switching = false;
+            console.log("StartState loaded — press / to go back to TitleState");
 
             // screen reader
             const introMessage = "Controls: Click the start button or use the space bar!" +
@@ -93,6 +115,23 @@ var StartState = {
         },
         update: function () {
             updateCloudSprites(this);
+            if (this.slashKey && !this.switching && this.slashKey.justDown) {
+                console.log("/ pressed in StartState");
+                this.switching = true;
+
+                if (window.speechSynthesis) window.speechSynthesis.cancel();
+                if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+                if (lastState) {
+                    this.state.start(lastState);
+                } else {
+                    this.state.start("TitleState"); // fallback
+                }
+
+                this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+                    this.switching = false;
+                }, this);
+            }
         },
         playButtonActions: {
             onClick: function () {

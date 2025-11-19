@@ -185,7 +185,24 @@ var IntroState = {
             .yoyo(true, 0)
             .loop(true);
 
-        //***********************************************
+        // Pause Button
+        var onPause = function () {
+            AudioManager.playSound("bloop_sfx", this);
+            LastState = "PPQuestionState";
+            this.state.start("PauseState");
+        };
+        this.pauseButton = this.add.button(
+            0.78 * WIDTH,
+            0.02 * HEIGHT,
+            "button_pause",
+            onPause,
+            this,
+            0,
+            0,
+            1
+        );
+        this.pauseButton.scale.setTo(0.75);
+
         // capture Enter key
         this.spaceKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         // prevent browser default
@@ -211,9 +228,36 @@ var IntroState = {
             console.log("M key pressed — toggling mute");
             AudioManager.toggleMusic(this);
         }, this);
-        //*************************************************
 
+        this.slashKey = this.input.keyboard.addKey(191); // "/" key
+        this.shiftKey = this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+        this.switching = false;
 
+        // p to open pause screen
+        this.pKey = this.input.keyboard.addKey(Phaser.Keyboard.P);
+        this.input.keyboard.addKeyCapture([Phaser.Keyboard.P]);
+
+        this.pKey.onDown.add(function () {
+            if (this.switching) return; // prevent double-trigger
+            this.switching = true;
+
+            console.log("P key pressed — opening PauseState");
+
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            if (AudioManager && AudioManager.stopAll) {
+                AudioManager.stopAll();
+            }
+
+            // remember where we came from so Resume can go back
+            lastState = Game.state.current;
+
+            this.state.start("PauseState");
+
+            // brief delay before allowing next input
+            this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+                this.switching = false;
+            }, this);
+        }, this);
 
         // Start Animation
 
@@ -239,6 +283,22 @@ var IntroState = {
     },
     update: function () {
         updateCloudSprites(this);
+        updateCloudSprites(this);
+        if (this.slashKey && !this.switching && this.slashKey.justDown) {
+            this.switching = true;
+            console.log("/ pressed in IntroState");
+
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+            lastState = Game.state.current;
+
+            this.state.start("StartState");
+
+            this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+                this.switching = false;
+            }, this);
+        }
     },
     nextSubScene: function () {
         // This probably isn't the most efficient way of doing this
@@ -375,7 +435,7 @@ var IntroState = {
                 );
                 break;
             case 5:
-                this.state.start("ChooseGameState");
+                this.state.start("PPIntroState");
                 break;
         }
     },
