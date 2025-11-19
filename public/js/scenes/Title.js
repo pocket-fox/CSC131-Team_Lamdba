@@ -1,11 +1,6 @@
 "use strict";
 
 var TitleState = {
-
-  _a11yRoot: null,
-  _live: null,
-  _label: null,
-  
   preload: function () {},
   create: function () {
 
@@ -58,14 +53,14 @@ var TitleState = {
 
     //*****************************************************************
       // captures enter key
-      this.spaceKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-      this.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
+      // this.spaceKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+      // this.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
 
-      // debug message + button click (open in browser, press f12)
-      this.spaceKey.onDown.add(function () {
-          console.log("Enter pressed on Title screen!");
-          this.playButtonActions.onClick.call(this);
-      }, this);
+      // // debug message + button click (open in browser, press f12)
+      // this.spaceKey.onDown.add(function () {
+      //     console.log("Enter pressed on Title screen!");
+      //     this.playButtonActions.onClick.call(this);
+      // }, this);
 
       // captures m key
       this.mKey = this.input.keyboard.addKey(Phaser.Keyboard.M);
@@ -93,7 +88,6 @@ var TitleState = {
     // Dom Functionality
     var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
     this.domElements = domOverlays.domElements;
-    var focusables = [ this.game.canvas ].concat(domOverlays.focusables);
     var self = this;
 
     this.a11y = A11yKit.init({
