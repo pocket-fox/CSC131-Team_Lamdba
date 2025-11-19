@@ -1,11 +1,6 @@
 "use strict";
 
 var TitleState = {
-
-  _a11yRoot: null,
-  _live: null,
-  _label: null,
-  
   preload: function () {},
   create: function () {
 
@@ -141,7 +136,6 @@ var TitleState = {
     // Dom Functionality
     var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
     this.domElements = domOverlays.domElements;
-    var focusables = [ this.game.canvas ].concat(domOverlays.focusables);
     var self = this;
 
     this.a11y = A11yKit.init({
@@ -155,6 +149,7 @@ var TitleState = {
 
     this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true)
     this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true)
+    self.a11y.trap.enable();
     
     this.a11y.announce(
       'Professor Davis Green Prevents Stormwater Pollution. Press Question Mark to hear controls.'

@@ -112,6 +112,34 @@ var StartState = {
                 "Click to interact or use WASD and the space bar to select!";
             announceToScreenReader(introMessage);
             speak(introMessage);
+
+            // DOM Element Setup
+            this.game.canvas.setAttribute('role', 'img');
+            this.game.canvas.setAttribute('tabindex', '1');
+
+            var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
+            this.domElements = domOverlays.domElements;
+            self = this;
+
+            this.a11y = A11yKit.init({
+                parent: this.game.canvas.parentNode,
+                elements: this.domElements,
+                escapeKey: 'Escape',
+                live: 'polite',
+                onEnable: function(){ self.a11y.announce('Game focused.'); },
+                onDisable: function(){ self.a11y.announce('Game focus released'); }
+            });
+
+            this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true);
+            this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
+            self.a11y.trap.enable();
+
+        },
+        shutdown: function () {
+            console.log("shutting down Title.js...");
+
+            if (this.a11y) { this.a11y.destroy(); this.a11y = null; }
+            if (this.domElements) { A11yKit.destroyDomOverlays(this.domElements); this.domElements = null };
         },
         update: function () {
             updateCloudSprites(this);

@@ -95,6 +95,30 @@ var PauseState = {
       .yoyo(true, 0)
       .loop(true);
 
+
+    this.game.canvas.setAttribute('role', 'img');
+    this.game.canvas.setAttribute('tabindex', '1');
+
+    var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
+    this.domElements = domOverlays.domElements;
+    self = this;
+
+    // 3. Initialize A11yKit with focus management
+    this.a11y = A11yKit.init({
+        parent: this.game.canvas.parentNode,
+        elements: this.domElements,
+        escapeKey: 'Escape',
+        live: 'polite',
+        onEnable: function(){ self.a11y.announce('Game focused.'); },
+        onDisable: function(){ self.a11y.announce('Game focus released'); }
+    });
+
+    // 4. Enable focus trap on canvas interaction
+    this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true);
+    this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
+    self.a11y.trap.enable();
+
+
       // captures m key
       this.mKey = this.input.keyboard.addKey(Phaser.Keyboard.M);
       this.input.keyboard.addKeyCapture([Phaser.Keyboard.M]);
@@ -118,8 +142,14 @@ var PauseState = {
           console.log("P pressed in PauseState — resuming");
           this.resumeButtonActions.onClick.call(this);
       }, this);
-  },
 
+  },
+  shutdown: function () {
+    console.log("shutting down Title.js...");
+
+    if (this.a11y) { this.a11y.destroy(); this.a11y = null; }
+    if (this.domElements) { A11yKit.destroyDomOverlays(this.domElements); this.domElements = null };
+  },
   update: function () {
     updateCloudSprites(this);
       updateCloudSprites(this);
