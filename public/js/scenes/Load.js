@@ -375,8 +375,38 @@ var LoadState = {
       "ff_washing_dog_water",
       "assets/ff/ff_washing_dog_water.png"
     );
+
+      for (var i = 0; i < PPGameData.levels.length; ++i) {
+          var level = PPGameData.levels[i];
+          for (var j = 0; j < level.length; ++j) {
+              var question = level[j];
+              this.load.image(
+                  question.name,
+                  "assets/pp/level_" +
+                  (i + 1) +
+                  "/question_" +
+                  (j + 1) +
+                  "/" +
+                  question.name +
+                  ".png"
+              );
+              for (var k = 0; k < question.options.length; ++k) {
+                  var option = question.options[k];
+                  this.load.image(
+                      option.name,
+                      "assets/pp/level_" +
+                      (i + 1) +
+                      "/question_" +
+                      (j + 1) +
+                      "/" +
+                      option.name +
+                      ".png"
+                  );
+              }
+          }
+      }
   },
   create: function () {
-    this.state.start("StartState");
+    this.state.start("TitleState");
   },
 };

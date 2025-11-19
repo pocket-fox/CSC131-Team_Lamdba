@@ -426,7 +426,6 @@ var PPResultState = {
       }, this);
 
 
-
     this.game.canvas.setAttribute('role', 'img');
     this.game.canvas.setAttribute('tabindex', '1');
 
@@ -448,7 +447,47 @@ var PPResultState = {
     this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true);
     this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
     self.a11y.trap.enable();
+    
+      // captures m key
+      this.mKey = this.input.keyboard.addKey(Phaser.Keyboard.M);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.M]);
 
+      // mutes when m is pressed + debug (open in browser, press f12)
+      this.mKey.onDown.add(function () {
+          console.log("M key pressed — toggling mute");
+          AudioManager.toggleMusic(this);
+      }, this);
+
+      // / to open button map
+      this.slashKey = this.input.keyboard.addKey(191); // "/" key
+      this.shiftKey = this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+      this.switching = false;
+
+      // p to open pause screen
+      this.pKey = this.input.keyboard.addKey(Phaser.Keyboard.P);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.P]);
+
+      this.pKey.onDown.add(function () {
+          if (this.switching) return; // prevent double-trigger
+          this.switching = true;
+
+          console.log("P key pressed — opening PauseState");
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) {
+              AudioManager.stopAll();
+          }
+
+          // remember where we came from so Resume can go back
+          lastState = Game.state.current;
+
+          this.state.start("PauseState");
+
+          // brief delay before allowing next input
+          this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+              this.switching = false;
+          }, this);
+      }, this);
   },
   shutdown: function () {
       console.log("shutting down Title.js...");
@@ -457,7 +496,24 @@ var PPResultState = {
       if (this.domElements) { A11yKit.destroyDomOverlays(this.domElements); this.domElements = null };
   },
 
-  update: function () {},
+  update: function () {
+      if (this.slashKey && !this.switching && this.slashKey.justDown) {
+          this.switching = true;
+          console.log("/ pressed in PPResultState");
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+
+          this.state.start("StartState");
+
+          this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+              this.switching = false;
+          }, this);
+      }
+  },
+
   nextButtonActions: {
     onClick: function () {
       AudioManager.playSound("bloop_sfx", this);

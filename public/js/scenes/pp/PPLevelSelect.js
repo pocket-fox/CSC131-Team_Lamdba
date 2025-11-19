@@ -43,60 +43,80 @@ var PPLevelSelectState = {
     this.speechText.lineSpacing = TextStyle.lineSpacing;
     this.speechText.resolution = 2;
 
-    // Level Select Buttons
-    this.level1Btn = this.add.button(
-      0.475 * WIDTH,
-      0.55 * HEIGHT,
-      "button_pp_lvl1",
-      this.buttonActions.onClickOne,
-      this,
-      0,
-      0,
-      1
-    );
-    this.level1Btn.anchor.setTo(0.5, 0.5);
-    this.add
-      .tween(this.level1Btn.scale)
-      .to({ x: 0.9, y: 0.9 }, 600, "Linear", true)
-      .yoyo(true, 0)
-      .loop(true);
+      // Level Select Buttons
+      this.level1Btn = this.add.button(
+          0.475 * WIDTH,
+          0.45 * HEIGHT,
+          "button_pp_lvl1",
+          this.buttonActions.onClickOne,
+          this,
+          0,
+          0,
+          1
+      );
+      this.level1Btn.anchor.setTo(0.5, 0.5);
+      this.add
+          .tween(this.level1Btn.scale)
+          .to({ x: 0.9, y: 0.9 }, 600, "Linear", true)
+          .yoyo(true, 0)
+          .loop(true);
 
-    this.level2Btn = this.add.button(
-      0.475 * WIDTH,
-      0.45 * HEIGHT,
-      "button_pp_lvl2",
-      this.buttonActions.onClickTwo,
-      this,
-      0,
-      0,
-      1
-    );
-    this.level2Btn.anchor.setTo(0.5, 0.5);
-    this.add
-      .tween(this.level2Btn.scale)
-      .to({ x: 0.9, y: 0.9 }, 600, "Linear", true)
-      .yoyo(true, 0)
-      .loop(true);
 
-    this.level3Btn = this.add.button(
-      0.475 * WIDTH,
-      0.65 * HEIGHT,
-      "button_pp_lvl3",
-      this.buttonActions.onClickThree,
-      this,
-      0,
-      0,
-      1
-    );
-    this.level3Btn.anchor.setTo(0.5, 0.5);
-    this.add
-      .tween(this.level3Btn.scale)
-      .to({ x: 0.9, y: 0.9 }, 600, "Linear", true)
-      .yoyo(true, 0)
-      .loop(true);
+      this.level2Btn = this.add.button(
+          0.475 * WIDTH,
+          0.55 * HEIGHT,
+          "button_pp_lvl2",
+          this.buttonActions.onClickTwo,
+          this,
+          0,
+          0,
+          1
+      );
+      this.level2Btn.anchor.setTo(0.5, 0.5);
+      this.add
+          .tween(this.level2Btn.scale)
+          .to({ x: 0.9, y: 0.9 }, 600, "Linear", true)
+          .yoyo(true, 0)
+          .loop(true);
+
+
+      this.level3Btn = this.add.button(
+          0.475 * WIDTH,
+          0.65 * HEIGHT,
+          "button_pp_lvl3",
+          this.buttonActions.onClickThree,
+          this,
+          0,
+          0,
+          1
+      );
+      this.level3Btn.anchor.setTo(0.5, 0.5);
+      this.add
+          .tween(this.level3Btn.scale)
+          .to({ x: 0.9, y: 0.9 }, 600, "Linear", true)
+          .yoyo(true, 0)
+          .loop(true);
 
     // Mute button
     createMuteButton(this);
+
+      // Pause Button
+      var onPause = function () {
+          AudioManager.playSound("bloop_sfx", this);
+          LastState = "PPQuestionState";
+          this.state.start("PauseState");
+      };
+      this.pauseButton = this.add.button(
+          0.892 * WIDTH,
+          0.185 * HEIGHT,
+          "button_pause",
+          onPause,
+          this,
+          0,
+          0,
+          1
+      );
+      this.pauseButton.scale.setTo(0.75);
 
     // Keyboard can use 1, 2, and 3 to select level, numpad or top row
     this.input.keyboard.addKey(Phaser.Keyboard.ONE)
@@ -111,6 +131,7 @@ var PPLevelSelectState = {
       .onDown.add(this.buttonActions.onClickTwo, this);
     this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_3)
       .onDown.add(this.buttonActions.onClickThree, this);
+
 
     this.game.canvas.setAttribute('role', 'img');
     this.game.canvas.setAttribute('tabindex', '1');
@@ -134,6 +155,48 @@ var PPLevelSelectState = {
     this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
     self.a11y.trap.enable();
       
+
+      // captures m key
+      this.mKey = this.input.keyboard.addKey(Phaser.Keyboard.M);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.M]);
+
+      // mutes when m is pressed + debug (open in browser, press f12)
+      this.mKey.onDown.add(function () {
+          console.log("M key pressed — toggling mute");
+          AudioManager.toggleMusic(this);
+      }, this);
+
+      // / to open button map
+      this.slashKey = this.input.keyboard.addKey(191); // "/" key
+      this.shiftKey = this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+      this.switching = false;
+
+      // p to open pause screen
+      this.pKey = this.input.keyboard.addKey(Phaser.Keyboard.P);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.P]);
+
+      this.pKey.onDown.add(function () {
+          if (this.switching) return; // prevent double-trigger
+          this.switching = true;
+
+          console.log("P key pressed — opening PauseState");
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) {
+              AudioManager.stopAll();
+          }
+
+          // remember where we came from so Resume can go back
+          lastState = Game.state.current;
+
+          this.state.start("PauseState");
+
+          // brief delay before allowing next input
+          this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+              this.switching = false;
+          }, this);
+      }, this);
+
   },
   shutdown: function () {
     console.log("shutting down Title.js...");
@@ -144,6 +207,21 @@ var PPLevelSelectState = {
 
   update: function () {
     updateCloudSprites(this);
+      if (this.slashKey && !this.switching && this.slashKey.justDown) {
+          this.switching = true;
+          console.log("/ pressed in PPLevelSelectState");
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+
+          this.state.start("StartState");
+
+          this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+              this.switching = false;
+          }, this);
+      }
   },
   buttonActions: {
     onClickOne: function () {

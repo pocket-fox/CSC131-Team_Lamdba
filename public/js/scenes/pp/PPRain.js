@@ -22,6 +22,27 @@ var PPRainState = {
       .tween(this.cloudSprite2)
       .to({ x: 0.7 * WIDTH }, 2000, "Sine", true);
 
+      //Start of gradient//////////////////////////////////////
+      // Create bitmap data for gradient
+      var gradientBmd = this.add.bitmapData(WIDTH, HEIGHT);
+      var ctx = gradientBmd.ctx;
+
+      // Vertical gradient: dark at top -> transparent at bottom
+      var grd = ctx.createLinearGradient(0, 0, 0, HEIGHT);
+      grd.addColorStop(0, 'rgba(0,0,50,0.5)');    // top: dark blue semi-transparent
+      grd.addColorStop(1, 'rgba(0,0,0,0)');       // bottom: fully transparent
+
+      ctx.fillStyle = grd;
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+      // Add gradient sprite to the scene
+      this.gradientSprite = this.add.sprite(0, 0, gradientBmd);
+      this.gradientSprite.alpha = 0; // start invisible for fade-in
+
+      // Fade-in animation
+      this.add.tween(this.gradientSprite).to({ alpha: 1 }, 1000, Phaser.Easing.Linear.None, true);
+      //end of gradient/////////////////////////////////////////
+
     // Misc.
     this.houseSprite = this.add.sprite(0.08 * WIDTH, 0.45 * HEIGHT, "pp_house");
 
@@ -132,6 +153,7 @@ var PPRainState = {
           this.nextButtonActions.onClick.call(this);
         }
       }, this);
+
     this.game.canvas.setAttribute('role', 'img');
     this.game.canvas.setAttribute('tabindex', '1');
 
@@ -154,7 +176,46 @@ var PPRainState = {
     this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
     self.a11y.trap.enable();
 
-      
+      // captures m key
+      this.mKey = this.input.keyboard.addKey(Phaser.Keyboard.M);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.M]);
+
+      // mutes when m is pressed + debug (open in browser, press f12)
+      this.mKey.onDown.add(function () {
+          console.log("M key pressed — toggling mute");
+          AudioManager.toggleMusic(this);
+      }, this);
+
+      // / to open button map
+      this.slashKey = this.input.keyboard.addKey(191); // "/" key
+      this.shiftKey = this.input.keyboard.addKey(Phaser.Keyboard.SHIFT);
+      this.switching = false;
+
+      // p to open pause screen
+      this.pKey = this.input.keyboard.addKey(Phaser.Keyboard.P);
+      this.input.keyboard.addKeyCapture([Phaser.Keyboard.P]);
+
+      this.pKey.onDown.add(function () {
+          if (this.switching) return; // prevent double-trigger
+          this.switching = true;
+
+          console.log("P key pressed — opening PauseState");
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) {
+              AudioManager.stopAll();
+          }
+
+          // remember where we came from so Resume can go back
+          lastState = Game.state.current;
+
+          this.state.start("PauseState");
+
+          // brief delay before allowing next input
+          this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+              this.switching = false;
+          }, this);
+      }, this);
   },
   shutdown: function () {
       console.log("shutting down Title.js...");
@@ -163,7 +224,24 @@ var PPRainState = {
       if (this.domElements) { A11yKit.destroyDomOverlays(this.domElements); this.domElements = null };
   },
 
-  update: function () {},
+  update: function () {
+      if (this.slashKey && !this.switching && this.slashKey.justDown) {
+          this.switching = true;
+          console.log("/ pressed in PPRainState");
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+
+          this.state.start("StartState");
+
+          this.time.events.add(Phaser.Timer.SECOND * 0.25, function () {
+              this.switching = false;
+          }, this);
+      }
+  },
+
   nextButtonActions: {
     onClick: function () {
       AudioManager.playSound("bloop_sfx", this);

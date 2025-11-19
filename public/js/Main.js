@@ -4,6 +4,7 @@ var WIDTH = 900;
 var HEIGHT = 592;
 
 var Game;
+var lastState = null; // keeps track of previous scene name
 window.onload = function () {
   Game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, "gameDiv");
 
@@ -12,7 +13,6 @@ window.onload = function () {
   Game.state.add("StartState", StartState); // added to launch start.js
   Game.state.add("TitleState", TitleState);
   Game.state.add("IntroState", IntroState);
-  Game.state.add("ChooseGameState", ChooseGameState);
   Game.state.add("PauseState", PauseState);
 
   Game.state.add("PPIntroState", PPIntroState);
@@ -21,10 +21,6 @@ window.onload = function () {
   Game.state.add("PPResultState", PPResultState);
   Game.state.add("PPScoreState", PPScoreState);
   Game.state.add("PPLevelSelectState", PPLevelSelectState);
-
-  Game.state.add("FFIntroState", FFIntroState);
-  Game.state.add("FFGameState", FFGameState);
-  Game.state.add("FFScoreState", FFScoreState);
 
   Game.state.start("BootState");
 };
