@@ -97,6 +97,31 @@ var ChooseGameState = {
       .onDown.add(this.ffButtonActions.onClick, this);
     this.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_2)
       .onDown.add(this.ppButtonActions.onClick, this);
+
+    this.game.canvas.setAttribute('role', 'img');
+    this.game.canvas.setAttribute('tabindex', '1');
+
+    var domOverlays = A11yKit.buildDomOverlaysFromWorld(this.game, { startTabIndex: 100 });
+    this.domElements = domOverlays.domElements;
+    self = this;
+
+    // 3. Initialize A11yKit with focus management
+    this.a11y = A11yKit.init({
+        parent: this.game.canvas.parentNode,
+        elements: this.domElements,
+        escapeKey: 'Escape',
+        live: 'polite',
+        onEnable: function(){ self.a11y.announce('Game focused.'); },
+        onDisable: function(){ self.a11y.announce('Game focus released'); }
+    });
+
+    // 4. Enable focus trap on canvas interaction
+    this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true);
+    this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
+    self.a11y.trap.enable();
+
+
+      
 },
   update: function () {
     updateCloudSprites(this);

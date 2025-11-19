@@ -101,6 +101,7 @@ var TitleState = {
 
     this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true)
     this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true)
+    self.a11y.trap.enable();
     
     this.a11y.announce(
       'Professor Davis Green Prevents Stormwater Pollution. Press Question Mark to hear controls.'
