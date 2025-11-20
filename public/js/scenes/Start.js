@@ -130,12 +130,12 @@ var StartState = {
                 onDisable: function(){ self.a11y.announce('Game focus released'); }
             });
 
-            this.a11y.announce(introMessage);
 
             this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true);
             this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
             self.a11y.trap.enable();
 
+            this.a11y.announce(introMessage);
         },
         shutdown: function () {
             console.log("shutting down Title.js...");
