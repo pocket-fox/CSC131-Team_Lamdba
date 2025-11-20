@@ -99,7 +99,7 @@ var StartState = {
             this.pauseButton.scale.setTo(0.75);
 
             // Audio
-            AudioManager.playSong("title_music", this);
+            // AudioManager.playSong("title_music", this);
 
             this.slashKey = this.input.keyboard.addKey(191);
             this.switching = false;
