@@ -407,6 +407,6 @@ var LoadState = {
       }
   },
   create: function () {
-    this.state.start("TitleState");
+    this.state.start("StartState");
   },
 };
