@@ -376,7 +376,7 @@ var IntroState = {
             case 1:
                 this.professorSprite2.visible = true;
                 this.speechText2.visible = true;
-                self.a11y.announce(this.speechText2.text);
+                this.a11y.announce(this.speechText2.text);
 
                 this.add
                     .tween(this.speechText2.scale)
