@@ -303,11 +303,9 @@ var IntroState = {
         this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
         self.a11y.trap.enable();
 
-        this.a11y.announce(speechText)
         
     },
     shutdown: function () {
-        console.log("shutting down Title.js...");
 
         if (this.a11y) { this.a11y.destroy(); this.a11y = null; }
         if (this.domElements) { A11yKit.destroyDomOverlays(this.domElements); this.domElements = null };
