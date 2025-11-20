@@ -110,8 +110,8 @@ var StartState = {
                 "Click the pause button or use the P key to pause!" +
                 "Press the mute button or use the M key to mute!" +
                 "Click to interact or use WASD and the space bar to select!";
-            announceToScreenReader(introMessage);
-            speak(introMessage);
+            // announceToScreenReader(introMessage);
+            // speak(introMessage);
 
             // DOM Element Setup
             this.game.canvas.setAttribute('role', 'img');
@@ -130,10 +130,12 @@ var StartState = {
                 onDisable: function(){ self.a11y.announce('Game focus released'); }
             });
 
+
             this.game.canvas.addEventListener('focus', function(){ self.a11y.trap.enable(); }, true);
             this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
             self.a11y.trap.enable();
 
+            this.a11y.announce(introMessage);
         },
         shutdown: function () {
             console.log("shutting down Title.js...");

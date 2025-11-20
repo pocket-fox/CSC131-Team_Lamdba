@@ -303,7 +303,7 @@ var IntroState = {
         this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
         self.a11y.trap.enable();
 
-
+        this.a11y.announce(speechText)
         
     },
     shutdown: function () {
