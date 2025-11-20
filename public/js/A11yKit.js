@@ -202,18 +202,27 @@
       el = document.createElement('p');
       var txt = (child.text == null) ? '' : String(child.text);
       el.textContent = txt;
-      el.setAttribute('aria-label', txt);
+      // el.setAttribute('aria-label', txt);
       // If you want SR-only text, apply a class the app defines:
-      el.className = 'sr-only';
+      // el.className = 'sr-only';
     }
 
     // Common positioning/styling
     el.setAttribute('tabindex', String(tabIndex));
     el.style.position = 'absolute';
-    el.style.left   = (game.canvas.offsetLeft + child.x) + 'px';
-    el.style.top    = (game.canvas.offsetTop  + child.y) + 'px';
-    el.style.width  = child.width  + 'px';
-    el.style.height = child.height + 'px';
+    if (child instanceof Phaser.Text) {
+      el.style.left = '-9999px';
+      el.style.width = '1px';
+      el.style.height = '1px';
+      el.style.overflow = 'hidden';
+      el.style.clip = 'rect(0,0,0,0)';
+      el.style.whiteSpace = 'nowrap';
+    } else {
+      el.style.left   = (game.canvas.offsetLeft + child.x) + 'px';
+      el.style.top    = (game.canvas.offsetTop  + child.y) + 'px';
+      el.style.width  = child.width  + 'px';
+      el.style.height = child.height + 'px';
+    }
     el.style.zIndex = 1000;
     el.style.pointerEvents = 'auto';
     el.style.background = 'transparent';
