@@ -201,10 +201,10 @@
     } else { // Phaser.Text
       el = document.createElement('p');
       var txt = (child.text == null) ? '' : String(child.text);
-      // el.textContent = txt;
+      el.textContent = txt;
       el.setAttribute('aria-label', txt);
       // If you want SR-only text, apply a class the app defines:
-      // el.className = 'sr-only';
+      el.className = 'sr-only';
     }
 
     // Common positioning/styling
