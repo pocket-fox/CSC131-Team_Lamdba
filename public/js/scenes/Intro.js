@@ -303,7 +303,7 @@ var IntroState = {
         this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
         self.a11y.trap.enable();
 
-        this.a11y.announce(speechText1.text);
+        this.a11y.announce(speechText)
         
     },
     shutdown: function () {
@@ -376,7 +376,6 @@ var IntroState = {
             case 1:
                 this.professorSprite2.visible = true;
                 this.speechText2.visible = true;
-                this.a11y.announce(this.speechText2.text);
 
                 this.add
                     .tween(this.speechText2.scale)
@@ -398,9 +397,7 @@ var IntroState = {
                 this.speechBox2.visible = true;
                 this.infoBox1.visible = true;
                 this.speechText3_1.visible = true;
-                this.a11y.announce(this.speechText3_1.text);
                 this.speechText3_2.visible = true;
-                this.a11y.announce(this.speechText3_2.text);
 
                 this.add
                     .tween(this.speechBox2.scale)
@@ -427,9 +424,7 @@ var IntroState = {
                 this.professorSprite4.visible = true;
                 this.infoBox2.visible = true;
                 this.speechText4_1.visible = true;
-                this.a11y.announce(this.speechText4_1.text);
                 this.speechText4_2.visible = true;
-                this.a11y.announce(this.speechText4_2.text);
 
                 this.add
                     .tween(this.speechBox2.scale)
@@ -455,7 +450,6 @@ var IntroState = {
             case 4:
                 this.professorSprite5.visible = true;
                 this.speechText5.visible = true;
-                this.a11y.announce(this.speechText5.text);
 
                 this.add
                     .tween(this.speechBox2.scale)
