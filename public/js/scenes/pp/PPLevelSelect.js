@@ -1,5 +1,7 @@
 "use strict";
 
+var lastState = null;
+
 var PPLevelSelectState = {
   preload: function () {},
   create: function () {
@@ -103,7 +105,7 @@ var PPLevelSelectState = {
       // Pause Button
       var onPause = function () {
           AudioManager.playSound("bloop_sfx", this);
-          LastState = "PPQuestionState";
+          lastState = this.state.current;
           this.state.start("PauseState");
       };
       this.pauseButton = this.add.button(
@@ -117,6 +119,26 @@ var PPLevelSelectState = {
           1
       );
       this.pauseButton.scale.setTo(0.75);
+
+      // control button
+      var onQuestion = function () {
+          AudioManager.playSound("bloop_sfx", this);
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+          this.state.start("StartState");
+      };
+
+      this.questionButton = this.add.button(
+          0.895 * WIDTH,     // move left/right
+          0.35 * HEIGHT,    // move up/down
+          "button_question",
+          onQuestion,
+          this
+      );
+      this.questionButton.scale.setTo(0.75);
 
     // Keyboard can use 1, 2, and 3 to select level, numpad or top row
     this.input.keyboard.addKey(Phaser.Keyboard.ONE)

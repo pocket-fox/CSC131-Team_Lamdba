@@ -64,34 +64,15 @@ var LoadState = {
     this.load.spritesheet("button_play", "assets/button/play.png", 116, 116);
     this.load.spritesheet("button_pause", "assets/button/pause.png", 116, 116);
     this.load.spritesheet("button_home", "assets/button/home.png", 116, 116);
-    this.load.spritesheet(
-      "button_replay",
-      "assets/button/replay.png",
-      116,
-      116
-    );
+    this.load.spritesheet("button_replay", "assets/button/replay.png", 116, 116);
     this.load.spritesheet("button_sound", "assets/button/sound.png", 116, 116);
     this.load.spritesheet("button_next", "assets/button/next.png", 152, 58);
     this.load.spritesheet("button_ff", "assets/button/ff.png", 212, 212);
     this.load.spritesheet("button_pp", "assets/button/pp.png", 212, 212);
-    this.load.spritesheet(
-      "button_pp_lvl1",
-      "assets/pp/button_level1.png",
-      152,
-      58
-    );
-    this.load.spritesheet(
-      "button_pp_lvl2",
-      "assets/pp/button_level2.png",
-      152,
-      58
-    );
-    this.load.spritesheet(
-      "button_pp_lvl3",
-      "assets/pp/button_level3.png",
-      152,
-      58
-    );
+    this.load.spritesheet("button_pp_lvl1", "assets/pp/button_level1.png", 152, 58);
+    this.load.spritesheet("button_pp_lvl2", "assets/pp/button_level2.png", 152, 58);
+    this.load.spritesheet("button_pp_lvl3", "assets/pp/button_level3.png", 152, 58);
+    this.load.spritesheet("button_question", "assets/button/question.png", 116, 116);
 
     // Audio
     this.load.audio("title_music", "audio/JoyInTheWorldNew.mp3");
@@ -407,6 +388,6 @@ var LoadState = {
       }
   },
   create: function () {
-    this.state.start("StartState");
+    this.state.start("TitleState");
   },
 };
