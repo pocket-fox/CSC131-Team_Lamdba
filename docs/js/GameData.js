@@ -432,11 +432,11 @@ var PPGameData = {
               "YOU PREVENTED POLLUTION AND KEPT\nTHE LOCAL WATERWAYS CLEAN!",
             resultLowerText:
               "WHEN YOU WASH BRUSHES IN A SINK, THE DIRTY WATER\nIS SENT TO THE SEWER TO BE CLEANED.\n\n" +
-              "YOU CAN ALSO WASH THE BRUSHES IN YOUR YARD—JUST MAKE\nSURE THAT THE DIRTY WATER DOESN'T RUN OFF INTO THE STREET.",
+              "YOU DO NOT WASH THE BRUSHES IN YOUR YARD—THIS IS\nOLD KNOWLEDGE AND CAN CAUSE POLLUTION.",
           },
           {
             name: "pp_2_1b",
-            correct: true,
+            correct: false,
             wetlands: {
               overlay: 0,
               lilypad: true,
@@ -449,9 +449,9 @@ var PPGameData = {
               bottle: false,
             },
             resultUpperText:
-              "YOU PREVENTED POLLUTION AND KEPT\nTHE LOCAL WATERWAYS CLEAN!",
+                "THAT SENT PAINT INTO THE GUTTERS, DOWN THE\nSTORMDRAIN AND POLLUTED LOCAL WATERWAYS!",
             resultLowerText:
-              "JUST MAKE SURE THE DIRTY WATER WILL NOT\nRUN INTO THE STREET.\n\n" +
+              "WASHING PAINT BRUSHES IN THE LAWN IS NOT\nCONSIDERED SAFE ANYMORE.\n\n" +
               "YOU CAN ALSO WASH BRUSHES IN THE SINK SO THE\nDIRTY WATER IS SENT TO THE SEWER TO BE CLEANED.",
           },
           {
@@ -472,7 +472,7 @@ var PPGameData = {
               "THAT SENT PAINT INTO THE GUTTERS, DOWN THE\nSTORMDRAIN AND POLLUTED LOCAL WATERWAYS!",
             resultLowerText:
               "NEXT TIME, WASH BRUSHES IN A SINK SO THE DIRTY WATER\nIS SENT TO THE SEWER TO BE CLEANED.\n\n" +
-              "YOU CAN ALSO WASH THE BRUSHES IN YOUR YARD—JUST MAKE\nSURE THAT THE DIRTY WATER DOESN'T RUN OFF INTO THE STREET.",
+                "YOU DO NOT WASH THE BRUSHES IN YOUR YARD—THIS IS\nOLD KNOWLEDGE AND CAN CAUSE POLLUTION.",
           },
         ],
       },
