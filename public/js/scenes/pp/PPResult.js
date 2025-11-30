@@ -1,5 +1,7 @@
 "use strict";
 
+var lastState = null;
+
 var PPResultState = {
   preload: function () {},
   create: function () {
@@ -402,7 +404,7 @@ var PPResultState = {
     // Pause Button
     var onPause = function () {
       AudioManager.playSound("bloop_sfx", this);
-      LastState = "PPResultState";
+      lastState = this.state.current;
       this.state.start("PauseState");
     };
     this.pauseButton = this.add.button(

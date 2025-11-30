@@ -1,5 +1,8 @@
 "use strict";
 
+var lastState = null;
+var ppIntroSubSceneIndex = 0;
+
 var PPIntroState = {
   preload: function () {},
   create: function () {
@@ -116,7 +119,7 @@ var PPIntroState = {
       // Pause Button
       var onPause = function () {
           AudioManager.playSound("bloop_sfx", this);
-          LastState = "PPQuestionState";
+          lastState = this.state.current;
           this.state.start("PauseState");
       };
       this.pauseButton = this.add.button(
@@ -130,6 +133,26 @@ var PPIntroState = {
           1
       );
       this.pauseButton.scale.setTo(0.75);
+
+      // control button
+      var onQuestion = function () {
+          AudioManager.playSound("bloop_sfx", this);
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+          this.state.start("StartState");
+      };
+
+      this.questionButton = this.add.button(
+          0.78 * WIDTH,     // move left/right
+          0.02 * HEIGHT,    // move up/down
+          "button_question",
+          onQuestion,
+          this
+      );
+      this.questionButton.scale.setTo(0.75);
 
     // Start Animation
     this.nextDelay = 1000;
@@ -156,8 +179,6 @@ var PPIntroState = {
           this.nextButtonActions.onClick.call(this);
         }
       }, this);
-
-
 
     this.game.canvas.setAttribute('role', 'img');
     this.game.canvas.setAttribute('tabindex', '1');
@@ -223,6 +244,13 @@ var PPIntroState = {
           }, this);
       }, this);
 
+      if (ppIntroSubSceneIndex > 0) {
+          console.log("Restoring PPIntroState to subSceneIndex:", ppIntroSubSceneIndex);
+          for (var i = 0; i < ppIntroSubSceneIndex; i++) {
+              this.nextSubScene(true);
+          }
+      }
+
   },
   shutdown: function () {
     console.log("shutting down Title.js...");
@@ -249,7 +277,9 @@ var PPIntroState = {
           }, this);
       }
   },
-  nextSubScene: function () {
+  nextSubScene: function (restoreMode) {
+      restoreMode = !!restoreMode;
+
     // Before changing subscene
     switch (this.subSceneIndex) {
       case 0:
@@ -277,60 +307,74 @@ var PPIntroState = {
 
     // Increment subscene
     this.subSceneIndex++;
+      if (!restoreMode) {
+          ppIntroSubSceneIndex = this.subSceneIndex;
+      }
 
-    // After changing subscene
+      // After changing subscene
     switch (this.subSceneIndex) {
       case 1:
         this.professorSprite2.visible = true;
         this.speechText2.visible = true;
         this.wetlandsSprite.visible = true;
 
-        this.add
-          .tween(this.speechText2.scale)
-          .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-        this.add
-          .tween(this.speechBox1.scale)
-          .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-        this.add
-          .tween(this.wetlandsSprite.scale)
-          .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+          if (!restoreMode) {
+              this.add
+                  .tween(this.speechText2.scale)
+                  .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+              this.add
+                  .tween(this.speechBox1.scale)
+                  .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+              this.add
+                  .tween(this.wetlandsSprite.scale)
+                  .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
 
-        this.time.events.add(
-          this.nextDelay,
-          function () {
-            this.nextButton.visible = true;
-          },
-          this
-        );
-        break;
-      case 2:
-        this.professorSprite3.visible = true;
-        this.speechText3.visible = true;
+              this.time.events.add(
+                  this.nextDelay,
+                  function () {
+                      this.nextButton.visible = true;
+                  },
+                  this
+              );
+          } else {
+              this.nextButton.visible = true;
+          }
+          break;
 
-        this.add
-          .tween(this.speechText3.scale)
-          .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-        this.add
-          .tween(this.speechBox1.scale)
-          .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+        case 2:
+            this.professorSprite3.visible = true;
+            this.speechText3.visible = true;
 
-        this.time.events.add(
-          this.nextDelay,
-          function () {
-            this.nextButton.visible = true;
-          },
-          this
-        );
-        break;
-      case 3:
-        this.state.start("PPLevelSelectState");
-        break;
+            if (!restoreMode) {
+                this.add
+                    .tween(this.speechText3.scale)
+                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+                this.add
+                    .tween(this.speechBox1.scale)
+                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+
+                this.time.events.add(
+                    this.nextDelay,
+                    function () {
+                        this.nextButton.visible = true;
+                    },
+                    this
+                );
+            } else {
+                this.nextButton.visible = true;
+            }
+            break;
+
+        case 3:
+            ppIntroSubSceneIndex = 0;
+            this.state.start("PPLevelSelectState");
+            break;
     }
   },
   nextButtonActions: {
     onClick: function () {
       AudioManager.playSound("bloop_sfx", this);
-      this.nextSubScene();
+      this.nextSubScene(false);
     },
   },
 };

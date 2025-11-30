@@ -1,5 +1,8 @@
 "use strict";
 
+var lastState = null;
+var introSubSceneIndex = 0;
+
 var IntroState = {
     preload: function () {},
     create: function () {
@@ -188,7 +191,7 @@ var IntroState = {
         // Pause Button
         var onPause = function () {
             AudioManager.playSound("bloop_sfx", this);
-            LastState = "PPQuestionState";
+            lastState = this.state.current;
             this.state.start("PauseState");
         };
         this.pauseButton = this.add.button(
@@ -202,6 +205,26 @@ var IntroState = {
             1
         );
         this.pauseButton.scale.setTo(0.75);
+
+        // control button
+        var onQuestion = function () {
+            AudioManager.playSound("bloop_sfx", this);
+
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+            lastState = Game.state.current;
+            this.state.start("StartState");
+        };
+
+        this.questionButton = this.add.button(
+            0.67 * WIDTH,     // move left/right
+            0.02 * HEIGHT,    // move up/down
+            "button_question",
+            onQuestion,
+            this
+        );
+        this.questionButton.scale.setTo(0.75);
 
         // capture Enter key
         this.spaceKey = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -303,7 +326,14 @@ var IntroState = {
         this.game.canvas.addEventListener('click', function(){ self.a11y.trap.enable(); }, true);
         self.a11y.trap.enable();
 
-        
+
+        if (introSubSceneIndex > 0) {
+            console.log("Restoring IntroState to subSceneIndex:", introSubSceneIndex);
+            for (var i = 0; i < introSubSceneIndex; i++) {
+                this.nextSubScene(true);
+            }
+        }
+
     },
     shutdown: function () {
 
@@ -330,7 +360,8 @@ var IntroState = {
             }, this);
         }
     },
-    nextSubScene: function () {
+    nextSubScene: function (restoreMode) {
+        restoreMode = !!restoreMode;
         // This probably isn't the most efficient way of doing this
 
         // Before changing subscene
@@ -368,6 +399,9 @@ var IntroState = {
 
         // Increment subscene
         this.subSceneIndex++;
+        if (!restoreMode) {
+            introSubSceneIndex = this.subSceneIndex;
+        }
 
         // After changing subscene
         switch (this.subSceneIndex) {
@@ -375,21 +409,26 @@ var IntroState = {
                 this.professorSprite2.visible = true;
                 this.speechText2.visible = true;
 
-                this.add
-                    .tween(this.speechText2.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.speechBox1.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+                if (!restoreMode) {
+                    this.add
+                        .tween(this.speechText2.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.speechBox1.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
 
-                this.time.events.add(
-                    this.nextDelay,
-                    function () {
-                        this.nextButton.visible = true;
-                    },
-                    this
-                );
+                    this.time.events.add(
+                        this.nextDelay,
+                        function () {
+                            this.nextButton.visible = true;
+                        },
+                        this
+                    );
+                } else {
+                    this.nextButton.visible = true;
+                }
                 break;
+
             case 2:
                 this.professorSprite3.visible = true;
                 this.speechBox2.visible = true;
@@ -397,78 +436,94 @@ var IntroState = {
                 this.speechText3_1.visible = true;
                 this.speechText3_2.visible = true;
 
-                this.add
-                    .tween(this.speechBox2.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.infoBox1.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.speechText3_1.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.speechText3_2.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+                if (!restoreMode) {
+                    this.add
+                        .tween(this.speechBox2.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.infoBox1.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.speechText3_1.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.speechText3_2.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
 
-                this.time.events.add(
-                    this.nextDelay,
-                    function () {
-                        this.nextButton.visible = true;
-                    },
-                    this
-                );
+                    this.time.events.add(
+                        this.nextDelay,
+                        function () {
+                            this.nextButton.visible = true;
+                        },
+                        this
+                    );
+                } else {
+                    this.nextButton.visible = true;
+                }
                 break;
+
             case 3:
                 this.professorSprite4.visible = true;
                 this.infoBox2.visible = true;
                 this.speechText4_1.visible = true;
                 this.speechText4_2.visible = true;
 
-                this.add
-                    .tween(this.speechBox2.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.infoBox2.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.speechText4_1.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.speechText4_2.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+                if (!restoreMode) {
+                    this.add
+                        .tween(this.speechBox2.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.infoBox2.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.speechText4_1.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.speechText4_2.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
 
-                this.time.events.add(
-                    this.nextDelay,
-                    function () {
-                        this.nextButton.visible = true;
-                    },
-                    this
-                );
+                    this.time.events.add(
+                        this.nextDelay,
+                        function () {
+                            this.nextButton.visible = true;
+                        },
+                        this
+                    );
+                } else {
+                    this.nextButton.visible = true;
+                }
                 break;
+
             case 4:
                 this.professorSprite5.visible = true;
                 this.speechText5.visible = true;
 
-                this.add
-                    .tween(this.speechBox2.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
-                this.add
-                    .tween(this.speechText5.scale)
-                    .from({ x: 0.0, y: 0.0 }, this.animationSpeed, "Elastic", true);
+                if (!restoreMode) {
+                    this.add
+                        .tween(this.speechBox2.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
+                    this.add
+                        .tween(this.speechText5.scale)
+                        .from({x: 0.0, y: 0.0}, this.animationSpeed, "Elastic", true);
 
-                this.time.events.add(
-                    this.nextDelay,
-                    function () {
-                        this.nextButton.visible = true;
-                    },
-                    this
-                );
+                    this.time.events.add(
+                        this.nextDelay,
+                        function () {
+                            this.nextButton.visible = true;
+                        },
+                        this
+                    );
+                } else {
+                    this.nextButton.visible = true;
+                }
                 break;
+
             case 5:
+                introSubSceneIndex = 0;
                 this.state.start("PPIntroState");
                 break;
-        }
-    },
+            }
+        },
     nextButtonActions: {
         onClick: function () {
             AudioManager.playSound("bloop_sfx", this);

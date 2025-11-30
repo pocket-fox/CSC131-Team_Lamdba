@@ -1,5 +1,7 @@
 "use strict";
 
+var lastState = null;
+
 var PPScoreState = {
   preload: function () {},
   create: function () {

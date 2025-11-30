@@ -124,6 +124,28 @@ var TitleState = {
       );
       this.pauseButton.scale.setTo(0.75);
 
+      // control button
+      var onQuestion = function () {
+          AudioManager.playSound("bloop_sfx", this);
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+          this.state.start("StartState");
+      };
+
+      this.questionButton = this.add.button(
+          0.895 * WIDTH,     // move left/right
+          0.35 * HEIGHT,    // move up/down
+          "button_question",
+          onQuestion,
+          this
+      );
+      this.questionButton.scale.setTo(0.75);
+
+
+
     // Audio
     AudioManager.playSong("title_music", this);
 
@@ -184,7 +206,7 @@ var TitleState = {
   playButtonActions: {
     onClick: function () {
       AudioManager.playSound("bloop_sfx", this);
-      this.state.start("IntroState");
+      this.state.start("StartState");
     },
   },
 };
