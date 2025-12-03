@@ -398,8 +398,25 @@ var PPResultState = {
       AudioManager.playSound("wrong_sfx", this);
     }
 
-    // Mute button
-    createMuteButton(this);
+      // control button
+      var onQuestion = function () {
+          AudioManager.playSound("bloop_sfx", this);
+
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+          if (AudioManager && AudioManager.stopAll) AudioManager.stopAll();
+
+          lastState = Game.state.current;
+          this.state.start("StartState");
+      };
+
+      this.questionButton = this.add.button(
+          0.892 * WIDTH,     // move left/right
+          0.02 * HEIGHT,    // move up/down
+          "button_question",
+          onQuestion,
+          this
+      );
+      this.questionButton.scale.setTo(0.75);
 
     // Pause Button
     var onPause = function () {
