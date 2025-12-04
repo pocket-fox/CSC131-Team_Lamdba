@@ -46,7 +46,7 @@ var PPRainState = {
       //end of gradient/////////////////////////////////////////
 
     // Misc.
-    this.houseSprite = this.add.sprite(0.08 * WIDTH, 0.45 * HEIGHT, "pp_house");
+    this.houseSprite = this.add.sprite(0.08 * WIDTH, 0.35 * HEIGHT, "pp_house");
 
     // Rain
     this.rainEmitter = this.add.emitter(0.5 * WIDTH, -0.5 * HEIGHT, 200);
